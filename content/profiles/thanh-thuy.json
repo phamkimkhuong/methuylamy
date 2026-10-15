@@ -1,0 +1,31 @@
+{
+  "slug": "thanh-thuy",
+  "name": "Vương Thanh Thủy",
+  "brandName": "Mẹ Thủy Làm Y",
+  "alternateNames": ["Thanh Thủy", "Mẹ Thủy Làm Y"],
+  "jobTitle": "Điều dưỡng trưởng",
+  "description": "Chuyên gia thực chiến và đào tạo các kỹ năng chăm sóc sức khỏe mẹ và bé chuẩn y khoa.",
+  "biography": [
+    "Thanh Thủy chia sẻ kiến thức và kỹ năng chăm sóc mẹ và bé, đồng hành cùng phụ huynh trong hành trình nuôi dưỡng con."
+  ],
+  "specialties": [
+    "Nuôi con theo phương pháp EASY",
+    "Nuôi con bằng sữa mẹ",
+    "Tắm và massage cho trẻ sơ sinh",
+    "Tiền sản"
+  ],
+  "organization": {
+    "name": "Vạn Phúc Care",
+    "url": "https://vanphuccare.vn/",
+    "entityId": "https://vanphuccare.vn/#organization"
+  },
+  "socialLinks": [
+    { "label": "TikTok Mẹ Thủy Làm Y", "url": "https://www.tiktok.com/@methuylamy" }
+  ],
+  "links": [
+    { "label": "Khám phá khóa học", "url": "https://edu.vanphuccare.vn/courses" },
+    { "label": "Tìm hiểu Vạn Phúc Care", "url": "https://vanphuccare.vn/" }
+  ],
+  "experience": [],
+  "credentials": []
+}

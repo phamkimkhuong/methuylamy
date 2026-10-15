@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-ink: 43 37 42;
+    --color-muted: 100 89 97;
+    --color-accent: 154 51 83;
+    --color-paper: 252 249 247;
+    --color-line: 230 221 221;
+  }
+  html { scroll-padding-top: 2rem; }
+  body { @apply m-0 bg-paper font-sans text-ink antialiased; }
+  a, button { @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent; }
+  h1, h2, h3, p, a { overflow-wrap: anywhere; }
+  ::selection { background: #f5dce5; }
+}
+
+@layer components {
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-accent; }
+  .text-link { @apply underline decoration-accent/40 underline-offset-4 hover:decoration-accent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}
