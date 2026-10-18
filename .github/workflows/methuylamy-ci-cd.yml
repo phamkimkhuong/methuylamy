@@ -1,0 +1,141 @@
+name: Methuylamy - Nuxt SSG CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: methuylamy-cicd-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Test and generate static site
+    runs-on: ubuntu-latest
+    env:
+      PORTFOLIO_ENV: staging
+      PORTFOLIO_SITE_URL: https://methuylamy.vn
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Install Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Install, test, type-check and prerender
+        run: |
+          npm ci
+          npm run check
+          test -s .output/public/index.html
+          test -s .output/public/404.html
+          test -s .output/public/robots.txt
+          test -s .output/public/sitemap.xml
+          test -s .output/public/llms.txt
+          test -d .output/public/_nuxt
+
+      - name: Upload deployment artifact
+        if: >-
+          github.repository == 'TuanAnhVPC/methuylamy' &&
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'push' && vars.ENABLE_AUTO_DEPLOY == 'true'))
+        uses: actions/upload-artifact@v4
+        with:
+          name: methuylamy-site
+          path: .output/public/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 3
+
+  deploy:
+    name: Deploy preview to iNET VPS
+    needs: build
+    runs-on: ubuntu-latest
+    if: >-
+      github.repository == 'TuanAnhVPC/methuylamy' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       (github.event_name == 'push' && vars.ENABLE_AUTO_DEPLOY == 'true'))
+    steps:
+      - name: Download tested artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: methuylamy-site
+          path: site
+
+      - name: Validate artifact
+        run: |
+          set -euo pipefail
+          test -s site/index.html
+          test -s site/404.html
+          test -s site/robots.txt
+          test -s site/sitemap.xml
+          test -d site/_nuxt
+          grep -qi 'noindex, nofollow' site/index.html
+
+      - name: Configure verified SSH credentials
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOY_SSH_KEY"
+          test -n "$DEPLOY_KNOWN_HOSTS"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$HOME/.ssh/id_methuylamy"
+          chmod 600 "$HOME/.ssh/id_methuylamy"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+          ssh-keygen -y -f "$HOME/.ssh/id_methuylamy" > /dev/null
+          ssh-keygen -F '[103.216.119.114]:24700' -f "$HOME/.ssh/known_hosts" > /dev/null
+
+      - name: Publish release and atomically switch current
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_PORT: ${{ vars.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+        run: |
+          set -euo pipefail
+          # This workflow is intentionally bound to this single site/server.
+          test "$DEPLOY_HOST" = '103.216.119.114'
+          test "$DEPLOY_PORT" = '24700'
+          test "$DEPLOY_USER" = 'methuylamy-deploy'
+          test "$DEPLOY_PATH" = '/opt/methuylamy'
+
+          RELEASE="${GITHUB_SHA:0:12}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          DEST="$DEPLOY_PATH/releases/$RELEASE"
+          SSH_OPTS=(-i "$HOME/.ssh/id_methuylamy" -p "$DEPLOY_PORT" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$HOME/.ssh/known_hosts")
+          TARGET="$DEPLOY_USER@$DEPLOY_HOST"
+
+          ssh "${SSH_OPTS[@]}" "$TARGET" "mkdir '$DEST'"
+          rsync -az --no-owner --no-group \
+            -e "ssh -i $HOME/.ssh/id_methuylamy -p $DEPLOY_PORT -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts" \
+            site/ "$TARGET:$DEST/"
+
+          ssh "${SSH_OPTS[@]}" "$TARGET" \
+            "test -s '$DEST/index.html' && test -s '$DEST/404.html' && test -s '$DEST/robots.txt' && test -d '$DEST/_nuxt' && grep -qi 'noindex, nofollow' '$DEST/index.html'"
+
+          # Preserve previously published hashed assets for already-open tabs.
+          ssh "${SSH_OPTS[@]}" "$TARGET" \
+            "set -eu; old=\$(readlink -f '$DEPLOY_PATH/current'); if test -d \"\$old/_nuxt\"; then rsync -a --ignore-existing \"\$old/_nuxt/\" '$DEST/_nuxt/'; fi"
+
+          ssh "${SSH_OPTS[@]}" "$TARGET" \
+            "set -eu; echo Previous: \$(readlink '$DEPLOY_PATH/current'); ln -s 'releases/$RELEASE' '$DEPLOY_PATH/.next-$RELEASE'; mv -Tf '$DEPLOY_PATH/.next-$RELEASE' '$DEPLOY_PATH/current'; echo Current: \$(readlink '$DEPLOY_PATH/current')"
+
+      - name: Check public HTTPS after deployment
+        run: |
+          curl --fail --silent --show-error --location \
+            --retry 2 --connect-timeout 10 --max-time 30 \
+            -o /dev/null 'https://methuylamy.vn/'
