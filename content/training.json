@@ -1,0 +1,35 @@
+{
+  "headline": {
+    "primary": "Đào Tạo Chuyên Sâu",
+    "secondary": "Điều Dưỡng Sơ Sinh & Bảo Mẫu Hiện Đại"
+  },
+  "description": "Suốt những năm qua, Thủy liên tục làm việc và trau dồi. Đồng thời cũng chuyển giao kỹ năng chuyên môn và tư duy thực chiến giúp đội ngũ chăm sóc nâng cao chất lượng dịch vụ, đảm bảo an toàn tuyệt đối cho bé.",
+  "modules": [
+    {
+      "id": "technical",
+      "icon": "/images/icons/deep-technique.svg",
+      "title": "Kỹ thuật chuyên sâu",
+      "description": "Đào tạo quy trình chăm sóc và xử lý sự cố y tế theo tiêu chuẩn bệnh viện"
+    },
+    {
+      "id": "hands-on",
+      "icon": "/images/icons/hands-on-training.svg",
+      "title": "Thực hành bài bản",
+      "description": "Rèn luyện thao tác chuẩn xác và tác phong làm việc chuyên nghiệp trong thực tế"
+    }
+  ],
+  "images": [
+    {
+      "src": "/images/training/practical.png",
+      "alt": "Thực hành chăm sóc mô hình sơ sinh",
+      "width": 486,
+      "height": 324
+    },
+    {
+      "src": "/images/training/certificate.png",
+      "alt": "Cấp chứng nhận đào tạo chuẩn y khoa",
+      "width": 486,
+      "height": 231
+    }
+  ]
+}

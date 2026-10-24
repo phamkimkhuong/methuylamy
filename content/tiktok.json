@@ -1,0 +1,47 @@
+{
+  "headline": {
+    "primary": "Lan Tỏa Giá Trị",
+    "secondary": "Qua Tiktok Mẹ Thủy Làm Y"
+  },
+  "handle": "@methuylamy",
+  "name": "Mẹ Thủy Làm Y",
+  "avatar": "/images/tiktok/avatar.png",
+  "url": "https://www.tiktok.com/@methuylamy",
+  "stats": {
+    "following": "3",
+    "followers": "17.1K",
+    "likes": "12M"
+  },
+  "videos": [
+    {
+      "id": "tiktok-1",
+      "title": "Mẹo vỗ ợ hơi cho bé sơ sinh chuẩn y khoa",
+      "thumbnail": "/images/tiktok/video-1.png",
+      "url": "https://www.tiktok.com/@methuylamy"
+    },
+    {
+      "id": "tiktok-2",
+      "title": "Cách xử lý an toàn khi trẻ sơ sinh bị ọc sữa",
+      "thumbnail": "/images/tiktok/video-2.png",
+      "url": "https://www.tiktok.com/@methuylamy"
+    },
+    {
+      "id": "tiktok-3",
+      "title": "Lịch sinh hoạt EASY 3 giúp bé tự ngủ xuyên đêm",
+      "thumbnail": "/images/tiktok/video-3.png",
+      "url": "https://www.tiktok.com/@methuylamy"
+    },
+    {
+      "id": "tiktok-4",
+      "title": "Kỹ thuật massage bụng giảm đầy hơi cho trẻ",
+      "thumbnail": "/images/tiktok/video-4.png",
+      "url": "https://www.tiktok.com/@methuylamy"
+    },
+    {
+      "id": "tiktok-5",
+      "title": "Phân biệt 4 kiểu tiếng khóc điển hình của trẻ",
+      "thumbnail": "/images/tiktok/video-5.png",
+      "url": "https://www.tiktok.com/@methuylamy"
+    }
+  ]
+}

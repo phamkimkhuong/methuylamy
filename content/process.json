@@ -1,0 +1,24 @@
+{
+  "headline": {
+    "primary": "Quy trình Hợp Tác",
+    "secondary": "Bảo chứng Chất Lượng Thương Hiệu"
+  },
+  "mascot": "/images/process/mascot.png",
+  "steps": [
+    {
+      "step": "Bước 1",
+      "title": "Kiểm duyệt y khoa",
+      "description": "Rà soát pháp lý & chất lượng sản phẩm/ dịch vụ"
+    },
+    {
+      "step": "Bước 2",
+      "title": "Kế hoạch hợp tác",
+      "description": "Trao đổi phương án và kế hoạch truyền thông"
+    },
+    {
+      "step": "Bước 3",
+      "title": "Lan tỏa giá trị",
+      "description": "Bảo chứng chất lượng và lan tỏa cộng đồng"
+    }
+  ]
+}

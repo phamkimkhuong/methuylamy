@@ -1,0 +1,26 @@
+[
+  {
+    "id": "vnexpress-easy",
+    "title": "Nút Chờ Trong EASY: Giúp Bé Tự Ngủ Và Nổi Giấc Thành Công",
+    "excerpt": "Những kiến thức chăm sóc sức khỏe mẹ và bé mới nhất, chuẩn khoa học...",
+    "source": "VnExpress.Net",
+    "image": "/images/press/vnexpress-easy.png",
+    "url": "https://vnexpress.net"
+  },
+  {
+    "id": "dantri-easy",
+    "title": "Rèn Con Theo Lịch EASY 4: Hướng Dẫn Đầy Đủ..",
+    "excerpt": "Những kỹ năng chăm sóc con \"xương máu\" từ một người mẹ nuôi con nhỏ",
+    "source": "Dantri.com",
+    "image": "/images/press/dantri-easy.png",
+    "url": "https://dantri.com.vn"
+  },
+  {
+    "id": "vnexpress-milk",
+    "title": "Tài Liệu Bảng ML Sữa Chuẩn Cho Bé Theo...",
+    "excerpt": "Lắng nghe và giải quyết tận gốc những nỗi đau, nỗi lo của các bậc phụ huynh.",
+    "source": "VnExpress.Net",
+    "image": "/images/press/vnexpress-milk.png",
+    "url": "https://vnexpress.net"
+  }
+]

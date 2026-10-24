@@ -1,0 +1,74 @@
+[
+  {
+    "id": "van-phuc-care",
+    "name": "Vạn Phúc Care",
+    "logo": "/images/partners/van-phuc-care.png",
+    "website": "https://vanphuccare.vn"
+  },
+  {
+    "id": "hipp",
+    "name": "HiPP Organic",
+    "logo": "/images/partners/hipp.png",
+    "website": "https://hipp.vn"
+  },
+  {
+    "id": "unbee",
+    "name": "Unbee",
+    "logo": "/images/partners/unbee.png",
+    "website": "https://unbee.vn/"
+  },
+  {
+    "id": "pigeon",
+    "name": "Pigeon",
+    "logo": "/images/partners/pigeon.png",
+    "website": "https://thyseed.vn/"
+  },
+  {
+    "id": "moony",
+    "name": "Moony",
+    "logo": "/images/partners/moony.png",
+    "website": "https://wesser.com.vn/"
+  },
+  {
+    "id": "cetaphil",
+    "name": "Cetaphil Baby",
+    "logo": "/images/partners/cetaphil.png",
+    "website": "https://cetaphil.com.vn/"
+  },
+  {
+    "id": "dr-papie",
+    "name": "Dr.Papie",
+    "logo": "/images/partners/dr-papie.png",
+    "website": "https://drpapie.com.vn/"
+  },
+  {
+    "id": "hoppi",
+    "name": "Hoppi",
+    "logo": "/images/partners/hoppi.png",
+    "website": "https://hoppi.vn/"
+  },
+  {
+    "id": "meiji",
+    "name": "Meiji",
+    "logo": "/images/partners/meiji.png",
+    "website": "https://www.mooimom.vn/"
+  },
+  {
+    "id": "emoon",
+    "name": "Emoon",
+    "logo": "/images/partners/emoon.png",
+    "website": "https://emoon.com.vn/"
+  },
+  {
+    "id": "la-roche-posay",
+    "name": "La Roche-Posay",
+    "logo": "/images/partners/la-roche-posay.png",
+    "website": "https://www.larocheposay.vn/"
+  },
+  {
+    "id": "hegen",
+    "name": "Hegen",
+    "logo": "/images/partners/hegen.png",
+    "website": "http://xnklinhlinh.com/"
+  }
+]

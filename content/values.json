@@ -1,0 +1,29 @@
+{
+  "headline": {
+    "primary": "Điểm Tựa Tri Thức",
+    "secondary": "Cho Hành Trình Nuôi Con Vững Chãi"
+  },
+  "items": [
+    {
+      "id": "medical",
+      "title": "Kiến thức y khoa",
+      "description": "Những kiến thức chăm sóc sức khỏe mẹ và bé mới nhất, chuẩn khoa học.",
+      "image": "/images/values/medical.png",
+      "icon": "/images/icons/medical-science.svg"
+    },
+    {
+      "id": "experience",
+      "title": "Kinh nghiệm thực tế",
+      "description": "Những kỹ năng chăm sóc con \"xương máu\" từ một người mẹ nuôi con nhỏ",
+      "image": "/images/values/experience.png",
+      "icon": "/images/icons/experience.svg"
+    },
+    {
+      "id": "empathy",
+      "title": "Sự thấu cảm",
+      "description": "Lắng nghe và giải quyết tận gốc những nổi đau, nổi lo của các bậc phụ huynh",
+      "image": "/images/values/empathy.png",
+      "icon": "/images/icons/empathy.svg"
+    }
+  ]
+}

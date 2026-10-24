@@ -1,0 +1,33 @@
+{
+  "eyebrow": "MẸ THỦY LÀM Y",
+  "headline": {
+    "primary": "Cùng Bạn Đồng hành",
+    "secondary": "Trên Hành Trình Làm Mẹ"
+  },
+  "description": "Từ kinh nghiệm 10 năm ngành Y và thiên chức làm mẹ, Thủy thấu hiểu trọn vẹn hành trình nuôi con đầy hạnh phúc nhưng cũng nhiều trăn trở. Thủy mong muốn được sẻ chia những giá trị 'Chuẩn Y khoa' nhất, giúp mẹ tự tin hơn trên hành trình nuôi con thuận tự nhiên nhưng đầy bản lĩnh.",
+  "badges": [
+    "Chuyên gia chăm sóc trẻ sơ sinh",
+    "Điều dưỡng trưởng Vạn Phúc Care",
+    "Huấn luyện viên EASY"
+  ],
+  "statistics": [
+    {
+      "value": "10+ Năm",
+      "label": "Kinh nghiệm"
+    },
+    {
+      "value": "352+ Trẻ",
+      "label": "Chăm sóc"
+    },
+    {
+      "value": "15+ Thương hiệu",
+      "label": "Đồng hành"
+    }
+  ],
+  "portrait": {
+    "src": "/images/hero/hero-thuy.png",
+    "alt": "Mẹ Thủy Làm Y - Điều dưỡng trưởng Vạn Phúc Care",
+    "width": 506,
+    "height": 579
+  }
+}
