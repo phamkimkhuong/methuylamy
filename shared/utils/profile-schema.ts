@@ -1,6 +1,17 @@
 import type { PersonProfile, ProfileResource } from '../schemas/profile'
 
-export function createProfileGraph(profile: PersonProfile, url: string, books: ProfileResource[], courses: ProfileResource[]) {
+export interface FaqItem {
+  question: string
+  answer: string
+}
+
+export function createProfileGraph(
+  profile: PersonProfile,
+  url: string,
+  books: ProfileResource[],
+  courses: ProfileResource[],
+  faqs: FaqItem[] = []
+) {
   const personId = `${url}#person`
   const person = {
     '@type': 'Person',
@@ -36,6 +47,18 @@ export function createProfileGraph(profile: PersonProfile, url: string, books: P
         '@type': 'Course', '@id': `${url}#course-${course.slug}`,
         name: course.title, description: course.description, url: course.url,
       })),
+      ...(faqs.length ? [{
+        '@type': 'FAQPage',
+        '@id': `${url}#faq`,
+        mainEntity: faqs.map(faq => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      }] : []),
     ],
   }
 }
