@@ -1,6 +1,6 @@
 # LTW10 — Portfolio Mẹ Thủy Làm Y
 
-Nền Nuxt 4 SSG độc lập trong repo VPC. Đây là **trang khung kỹ thuật**, chưa phải bản cắt Figma FINAL_DEV hoặc bản nghiệm thu production. Không có API runtime, form Lead, đăng nhập, pixel hay CMS trong đợt này.
+Website giới thiệu thương hiệu cá nhân Mẹ Thủy Làm Y (Thanh Thủy VPC), xây dựng trên nền tảng Nuxt 4 SSG (Static Site Generation) độc lập, tối ưu Core Web Vitals, hỗ trợ phát video streaming HLS kết nối hệ thống Van Phuc Care, tích hợp schema dữ liệu có cấu trúc đạt chuẩn Google Rich Results (ProfilePage / Person).
 
 ## Chạy local
 
@@ -60,19 +60,89 @@ Khi quay lại local, xóa hai biến trên hoặc đặt lại staging. Với B
 - llms.txt không bảo đảm được AI trích dẫn hoặc xếp hạng.
 - JSON-LD được escape trước khi chèn vào script; không render nội dung JSON bằng v-html.
 
+---
+
+## Hướng dẫn Mở Khóa SEO & Lập Chỉ Mục (Go-Live Production)
+
+### 1. Bản chất cơ chế bảo vệ 2 lớp khi ở Staging/Preview
+Khi website đang trong quá trình phát triển hoặc thử nghiệm, hệ thống kích hoạt **2 lớp chặn lập chỉ mục (Defense in Depth)** để tránh việc Google cào các nội dung dở dang và lưu cache sai lệch lên kết quả tìm kiếm:
+1. **Lớp HTML:** Thẻ `<meta name="robots" content="noindex, nofollow">` sinh ra từ Nuxt SSG qua [`app/composables/useProfileSeo.ts`](app/composables/useProfileSeo.ts) khi `PORTFOLIO_ENV !== 'production'`.
+2. **Lớp HTTP Header:** `X-Robots-Tag: noindex, nofollow` được cấu hình tại Web Server Nginx trên VPS (`103.216.119.114`) để chặn bot ngay từ tầng phản hồi mạng cho cả HTML và toàn bộ tài nguyên tĩnh.
+
+Google Rich Results Test phát hiện `ProfilePage` hợp lệ nhưng báo chưa được lập chỉ mục chính là do cơ chế này đang hoạt động đúng thiết kế.
+
+---
+
+### 2. Quy trình 3 bước mở khóa SEO chính thức
+
+#### Bước 1: Cấu hình Build Production & cập nhật CI/CD
+Trong file [`.github/workflows/methuylamy-ci-cd.yml`](.github/workflows/methuylamy-ci-cd.yml):
+1. Đổi biến môi trường build sang `production`:
+   ```yaml
+   env:
+     PORTFOLIO_ENV: production
+     PORTFOLIO_SITE_URL: https://methuylamy.vn
+   ```
+2. Cập nhật 2 lệnh kiểm tra artifact (dòng 85 và dòng 128) từ kiểm tra `noindex` sang kiểm tra `index, follow`:
+   ```bash
+   grep -qi 'index, follow' site/index.html
+   # và
+   grep -qi 'index, follow' '$DEST/index.html'
+   ```
+
+*Khi build với `PORTFOLIO_ENV=production`:*
+- Trang HTML tự động mang: `<meta name="robots" content="index, follow">`.
+- `sitemap.xml` tự động xuất bản URL chính thức: `<loc>https://methuylamy.vn/</loc>`.
+- `robots.txt` tự động công khai liên kết sitemap:
+  ```text
+  User-agent: *
+  Allow: /
+  Sitemap: https://methuylamy.vn/sitemap.xml
+  ```
+- `llms.txt` xuất bản đầy đủ thông tin hồ sơ, chuyên môn y khoa và khóa học của Mẹ Thủy.
+
+#### Bước 2: Gỡ bỏ header `X-Robots-Tag` trên Web Server Nginx (VPS)
+1. Đăng nhập SSH vào máy chủ VPS iNET (`103.216.119.114`):
+   ```bash
+   ssh -p 24700 user@103.216.119.114
+   ```
+2. Mở file cấu hình Nginx của domain `methuylamy.vn` (thường nằm tại `/etc/nginx/conf.d/` hoặc `/etc/nginx/sites-available/`).
+3. Tìm và xóa (hoặc comment lại) dòng:
+   ```nginx
+   # add_header X-Robots-Tag "noindex, nofollow";
+   ```
+4. Kiểm tra cú pháp cấu hình và tải lại Nginx:
+   ```bash
+   sudo nginx -t && sudo systemctl reload nginx
+   ```
+
+#### Bước 3: Xác minh 3 đầu & Khai báo Google Search Console
+1. **Kiểm tra bằng dòng lệnh:**
+   ```bash
+   # Kiểm tra HTTP Header (đảm bảo không còn header X-Robots-Tag: noindex)
+   curl -I https://methuylamy.vn/
+
+   # Kiểm tra robots.txt (đảm bảo trỏ đến sitemap.xml)
+   curl -s https://methuylamy.vn/robots.txt
+
+   # Kiểm tra sitemap.xml (đảm bảo chứa URL https://methuylamy.vn/)
+   curl -s https://methuylamy.vn/sitemap.xml
+   ```
+2. **Khai báo Google Search Console:**
+   - Đăng nhập [Google Search Console](https://search.google.com/search-console).
+   - Chọn thuộc tính `https://methuylamy.vn/`.
+   - Vào mục **Sơ đồ trang web (Sitemaps)** -> Nhập `sitemap.xml` -> Bấm **Gửi (Submit)**.
+   - Sử dụng công cụ **Kiểm tra URL (URL Inspection)** đối với `https://methuylamy.vn/` -> Bấm **Yêu cầu lập chỉ mục (Request Indexing)**.
+
+---
+
 ## CI và phát hành
 
-`.github/workflows/portfolio-check.yml` chạy riêng theo thay đổi portfolio, kiểm tra cả staging và production và upload hai artifact. URL `portfolio-staging.example.com` chỉ phục vụ CI; phải dùng domain staging thật khi build để triển khai.
+Pipeline CI/CD chính của dự án được cấu hình tại [`.github/workflows/methuylamy-ci-cd.yml`](.github/workflows/methuylamy-ci-cd.yml). Pipeline tự động chạy khi có Pull Request hoặc Push lên nhánh `main`:
+1. **Build & Test:** Cài đặt Node 24, chạy bộ test `npm run check` (Unit test, type-check, lint, Nuxt generate và kiểm tra verify output).
+2. **Deploy preview / production (iNET VPS):** Tải artifact lên VPS `103.216.119.114` qua SSH (port 24700, user `methuylamy-deploy`), release nguyên khối vào `/opt/methuylamy/releases/` và chuyển atomic symlink `/opt/methuylamy/current`. Đồng thời bảo lưu các asset hashed cũ trong `/_nuxt/` để người dùng đang mở tab không bị lỗi giao diện.
 
-Workflow **không deploy**, không có secret và không gọi `deploy.sh` chung (script đó dừng cả stack). Việc cấu hình server, DNS, SSL và tự deploy sẽ thực hiện ở bước tích hợp hạ tầng. Không gộp artifact staging với production; phải rebuild đúng môi trường.
-
-Workflow Docker cũ có `paths-ignore` cho portfolio và workflow mới: commit chỉ đổi các file này không kích hoạt deploy toàn bộ VPC. Commit có thêm thay đổi ngoài hai đường dẫn đó vẫn chạy pipeline cũ. Nếu GitHub đang yêu cầu check của workflow Docker cho mọi PR, cần đối chiếu branch protection khi mở PR portfolio.
-
-### Giới hạn dependency đã ghi nhận
-
-Ở lần setup 02/10/2026, `npm audit` báo 7 mục high cùng một chuỗi phụ thuộc `node-forge → listhen → Nuxt/Nitro`. Không tự chạy `npm audit fix --force` vì npm đề xuất hạ Nuxt về major cũ. Các package này thuộc công cụ Node dùng local/build, không nằm trong `.output/public` được phát hành; điều đó không loại bỏ rủi ro của môi trường build. Dev/preview bind localhost, không cấu hình HTTPS development tự ký. Cần theo dõi bản vá upstream và chạy lại audit trước khi production.
-
-Khi cấu hình Nginx: phục vụ các file route tồn tại, URL lạ trả HTTP 404 thật bằng `404.html`; không fallback mọi URL về `index.html`. Cache dài cho `/_nuxt/` có hash; HTML cần revalidate. Release vào thư mục mới rồi chuyển symlink, giữ release trước để rollback và giữ assets hash cũ đủ lâu để tránh lỗi tab đang mở. Không xóa artifact đang được phục vụ trong lúc upload.
+Khi cấu hình Nginx trên server: phục vụ các file route tồn tại, URL không tồn tại trả về HTTP 404 thật bằng `404.html` (không fallback mọi URL về `index.html` gây lỗi SEO). Thiết lập cache dài hạn cho `/_nuxt/` có hash; HTML cần revalidate (`no-cache`).
 
 ## Phần kế tiếp
 

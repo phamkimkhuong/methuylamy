@@ -155,6 +155,7 @@ async function openPlayer() {
         <video
           v-if="showPlayer && data.videoSrc"
           ref="videoRef"
+          :poster="data.coverImage"
           class="koc-course__video"
           controls
           playsinline
@@ -171,8 +172,6 @@ async function openPlayer() {
           <div class="koc-course__cover" aria-hidden="true">
             <img :src="data.coverImage" alt="" width="998" height="542" loading="lazy" decoding="async" />
           </div>
-          <!-- The Handoff contains a fully opaque light fill above the image. -->
-          <div class="koc-course__fill" aria-hidden="true" />
           <button
             type="button"
             class="koc-course__play"
@@ -193,43 +192,40 @@ async function openPlayer() {
 </template>
 
 <style scoped>
-.koc-course { padding-block: 40px; background:linear-gradient(179.55069deg,#f8f8f8 27.315%,#d1e4f1 99.554%); }
+.koc-course { padding-block: var(--koc-section-padding); background:linear-gradient(179.55069deg,var(--color-neutral-100) 27.315%,var(--color-primary-100) 99.554%); }
 .koc-course__mobile-play { position:absolute; inset:0; }
 .koc-course__mobile-play > span { position:absolute; left:20px; top:20px; transform:rotate(90deg); }
 .koc-course__circle,.koc-course__triangle { display:none; }
-.koc-course__content { display: flex; flex-direction: column; align-items: center; gap: 24px; }
-.koc-course__heading { width: 100%; margin: 0; text-align: center; font: 600 32px/36px var(--font-heading); }
+.koc-course__content { display: flex; flex-direction: column; align-items: center; gap: var(--koc-space-6); }
+.koc-course__heading { width: 100%; margin: 0; text-align: center; font: var(--koc-weight-semibold) var(--text-h1-mobile)/var(--text-h1-mobile--line-height) var(--font-heading); }
 .koc-course__heading > span { display: block; color: var(--color-primary-500); }
 .koc-course__heading > span + span { color: var(--color-secondary-500); }
-.koc-course__description { margin: 0; max-width: 912px; text-align: center; font: 500 16px/24px var(--font-body); }
-.koc-course__media { position: relative; width: 100%; max-width: 998px; aspect-ratio: 350 / 190; border-radius: 16px; overflow: hidden; background: var(--color-neutral-100); }
-.koc-course__cover, .koc-course__fill { position: absolute; inset: 0; }
-.koc-course__cover img { position: absolute; width: 105.71%; max-width: none; height: 109.49%; left: -2.91%; top: -9.55%; }
-.koc-course__fill { background: var(--color-neutral-100); }
-.koc-course__play { position: absolute; top: 50%; left: 50%; width: 56px; height: 56px; transform: translate(-50%, -50%); padding: 0; border: 0; background: transparent; border-radius: 50%; cursor: pointer; }
+.koc-course__description { margin: 0; max-width: 912px; text-align: center; font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); }
+.koc-course__media { position: relative; width: 100%; max-width: 998px; aspect-ratio: 350 / 190; border-radius: var(--koc-radius-2xl); overflow: hidden; background: var(--color-neutral-100); }
+.koc-course__cover { position: absolute; inset: 0; }
+.koc-course__cover img { width: 100%; height: 100%; object-fit: cover; }
+.koc-course__play { position: absolute; top: 50%; left: 50%; width: 56px; height: 56px; transform: translate(-50%,  -50%); padding: 0; border: 0; background: transparent; border-radius: 50%; cursor: pointer; }
 .koc-course__play:disabled { cursor: default; }
-.koc-course__circle { position: absolute; inset: 0 auto auto 0; width: 86px; height: 86px; transform: scale(calc(56 / 86)); transform-origin: top left; }
+.koc-course__circle { position: absolute; inset: 0 auto auto 0; width: 86px; height: 86px; }
 .koc-course__circle img, .koc-course__triangle img { max-width: none; }
-.koc-course__triangle { position: absolute; width: 38px; height: 47px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(.526316); }
+.koc-course__triangle { position: absolute; width: 38px; height: 47px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .koc-course__triangle > span { position: absolute; width: 47px; height: 38px; left: -4.5px; top: 4.5px; transform: rotate(90deg); }
 .koc-course__triangle img { position: absolute; left: 12.71%; top: 5.69%; }
 .koc-course__video { width: 100%; height: 100%; object-fit: contain; background: #000; }
 .koc-course__loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.4); z-index: 2; }
 .koc-course__spinner { width: 48px; height: 48px; border: 4px solid rgba(255, 255, 255, 0.3); border-top-color: #fff; border-radius: 50%; animation: koc-spin 0.8s linear infinite; }
 @keyframes koc-spin { to { transform: rotate(360deg); } }
-.koc-course__error { position: absolute; bottom: 12px; inset-inline: 16px; margin: 0; text-align: center; font: 500 12px/16px var(--font-body); }
-.koc-course__cta { width: 100%; min-height: 40px; font-size: 16px; line-height: 24px; padding:8px 16px; }
+.koc-course__error { position: absolute; bottom: 12px; inset-inline: 16px; margin: 0; text-align: center; font: var(--koc-weight-medium) var(--koc-body-xs-size)/var(--koc-body-xs-line) var(--font-body); }
+.koc-course__cta { width: 100%; min-height: 40px; font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); padding:var(--koc-space-2) var(--koc-space-4); }
 @media (min-width: 80rem) {
-  .koc-course { padding-block: 96px; background:linear-gradient(53.8411485deg,#d1e4f1 3.0636%,#f8f8f8 41.041%); }
+  .koc-course { background:linear-gradient(53.8411485deg,var(--color-primary-100) 3.0636%,var(--color-neutral-100) 41.041%); }
   .koc-course__mobile-play { display:none; }
   .koc-course__circle,.koc-course__triangle { display:block; }
-  .koc-course__heading { max-width: 585px; font-size: 48px; line-height: 64px; }
-  .koc-course__heading > span { display: flex; justify-content: center; align-items: center; height: 54px; }
-  .koc-course__heading > span:first-child { width: 502px; margin-inline: auto; }
+  .koc-course__heading { max-width: 585px; font-size: var(--text-h1); line-height: var(--text-h1--line-height); }
+  .koc-course__heading > span { display: flex; justify-content: center; align-items: center; min-height: 54px; }
+  .koc-course__heading > span:first-child { max-width: 502px; margin-inline: auto; }
   .koc-course__media { aspect-ratio: 998 / 542; }
   .koc-course__play { width: 86px; height: 86px; }
-  .koc-course__circle { transform: none; }
-  .koc-course__triangle { transform: translate(-50%, -50%); }
-  .koc-course__cta { width: auto; min-width: 162px; min-height: 48px; padding: 12px 24px; font-size: 16px; line-height: 24px; }
+  .koc-course__cta { width: auto; min-width: 162px; min-height: 48px; padding: var(--koc-space-3) var(--koc-space-6); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); }
 }
 </style>

@@ -1,0 +1,47 @@
+/* Handoff spacing/radius scale. Component geometry stays local.
+   Breakpoints remain literal in media queries (CSS var() is not supported there). */
+:root {
+  --koc-space-1: 4px;
+  --koc-space-2: 8px;
+  --koc-space-3: 12px;
+  --koc-space-4: 16px;
+  --koc-space-5: 20px;
+  --koc-space-6: 24px;
+  --koc-space-7: 28px;
+  --koc-space-8: 32px;
+  --koc-space-9: 36px;
+  --koc-space-10: 40px;
+  --koc-space-12: 48px;
+  --koc-space-20: 80px;
+  --koc-space-24: 96px;
+  --koc-radius-lg: 8px;
+  --koc-radius-xl: 12px;
+  --koc-radius-2xl: 16px;
+  --koc-radius-3xl: 24px;
+  --koc-radius-full: 9999px;
+  --koc-border-thin: 1px;
+  --koc-body-xs-size: 12px;
+  --koc-body-xs-line: 16px;
+  --koc-body-sm-size: 14px;
+  --koc-body-sm-line: 20px;
+  --koc-body-base-size: 16px;
+  --koc-body-base-line: 24px;
+  --koc-body-xl-size: 20px;
+  --koc-body-xl-line: 28px;
+  --koc-body-2xl-size: 24px;
+  --koc-body-2xl-line: 32px;
+  --koc-weight-regular: 400;
+  --koc-weight-medium: 500;
+  --koc-weight-semibold: 600;
+  --koc-section-padding: var(--koc-space-10);
+  --koc-section-gap: var(--koc-space-6);
+  --koc-header-padding: var(--koc-space-6);
+  --koc-icon-size: 24px;
+  --koc-control-size: 48px;
+}
+@media (min-width: 80rem) {
+  :root {
+    --koc-section-padding: var(--koc-space-24);
+    --koc-header-padding: var(--koc-space-8);
+  }
+}

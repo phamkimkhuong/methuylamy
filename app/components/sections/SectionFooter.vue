@@ -53,32 +53,32 @@ const footerEmail = 'info@methuylamy.vn'
 </template>
 
 <style scoped>
-.koc-footer { padding-block:32px; color:#292929; font:500 16px/24px var(--font-body); background:linear-gradient(180deg,#f8f8f8 29.842%,#d1e4f1 110.04%); }
-.footer-layout { display:flex; flex-direction:column; gap:24px; padding-inline:16px; }
-.footer-brand { display:flex; flex-direction:column; align-items:flex-start; gap:24px; }
+.koc-footer { padding-block:var(--koc-space-8); color:var(--color-neutral-900); font:var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); background:linear-gradient(180deg,var(--color-neutral-100) 29.842%,var(--color-primary-100) 110.04%); }
+.footer-layout { display:flex; flex-direction:column; gap:var(--koc-space-6); padding-inline:var(--koc-space-4); }
+.footer-brand { display:flex; flex-direction:column; align-items:flex-start; gap:var(--koc-space-6); }
 .footer-logo { display:flex; height:32px; align-items:center; }
-.footer-tagline { margin:0; font:400 28px/32px var(--font-heading); font-variation-settings:"SOFT" 0,"WONK" 1; color:#525252; }
-.footer-groups { display:flex; flex-direction:column; gap:24px; }
-.footer-group { display:flex; flex-direction:column; gap:24px; min-width:0; }
-.footer-group h2 { margin:0; font:500 24px/32px var(--font-body); }
-.footer-group ul { display:flex; flex-direction:column; gap:12px; list-style:none; padding:0; margin:0; }
+.footer-tagline { margin:0; font:var(--koc-weight-regular) var(--text-h2-mobile)/var(--text-h2-mobile--line-height) var(--font-heading); font-variation-settings:"SOFT" 0,"WONK" 1; color:var(--color-neutral-800); }
+.footer-groups { display:flex; flex-direction:column; gap:var(--koc-space-6); }
+.footer-group { display:flex; flex-direction:column; gap:var(--koc-space-6); min-width:0; }
+.footer-group h2 { margin:0; font:var(--koc-weight-medium) var(--koc-body-2xl-size)/var(--koc-body-2xl-line) var(--font-body); }
+.footer-group ul { display:flex; flex-direction:column; gap:var(--koc-space-3); list-style:none; padding:0; margin:0; }
 .footer-group a { overflow-wrap:anywhere; }
-.footer-contact { display:flex; flex-direction:column; gap:24px; }
-.footer-socials { display:flex; gap:12px; }
-.footer-social { display:flex; padding:4px 8px; align-items:center; }
+.footer-contact { display:flex; flex-direction:column; gap:var(--koc-space-6); }
+.footer-socials { display:flex; gap:var(--koc-space-3); }
+.footer-social { display:flex; padding:var(--koc-space-1) var(--koc-space-2); align-items:center; }
 .footer-social-icon { display:block; width:36px; height:36px; }
 .footer-facebook { display:block; max-width:none; transform:scale(.45); transform-origin:top left; }
 .footer-prenatal { display:none; }
-.koc-footer a:hover { color:#1a77ba; text-decoration:underline; }
-.koc-footer a:focus-visible { outline:2px solid #1a77ba; outline-offset:4px; border-radius:4px; }
+.koc-footer a:hover { color:var(--color-primary-500); text-decoration:underline; }
+.koc-footer a:focus-visible { outline:2px solid var(--color-primary-500); outline-offset:var(--koc-space-1); border-radius:4px; }
 @media(min-width:40rem) and (max-width:79.999rem) { .footer-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media(min-width:80rem) {
- .koc-footer { padding-block:48px; background:linear-gradient(180deg,#f8f8f8 23.039%,#d1e4f1 118.14%); }
- .footer-layout { flex-direction:row; justify-content:space-between; padding-inline:80px; }
- .footer-tagline { font-size:32px; line-height:40px; }
+ .koc-footer { padding-block:var(--koc-space-12); background:linear-gradient(180deg,var(--color-neutral-100) 23.039%,var(--color-primary-100) 118.14%); }
+ .footer-layout { flex-direction:row; justify-content:space-between; padding-inline:var(--koc-space-20); }
+ .footer-tagline { font-size:var(--text-h4); line-height:var(--text-h4--line-height); }
  .footer-groups { flex:none; width:742px; flex-direction:row; justify-content:space-between; gap:0; }
  .footer-group { width:206px; }
- .footer-contact { gap:12px; }
+ .footer-contact { gap:var(--koc-space-3); }
  .footer-prenatal { display:list-item; }
 }
 </style>

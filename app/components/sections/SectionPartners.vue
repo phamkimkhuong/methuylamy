@@ -40,12 +40,12 @@ function logoStyle(id:string) {
 </template>
 
 <style scoped>
-.koc-partners { padding-block:40px; }
-.koc-partners__layout { display:flex; flex-direction:column; align-items:center; gap:24px; }
-.koc-partners h2 { margin:0; font-size:28px; line-height:32px; font-weight:400; text-align:center; }
-.koc-partners h2 span { display:block; color:#1a77ba; }
-.koc-partners h2 span+span { color:#f48283; }
-.koc-partners__logos { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; width:100%; }
+.koc-partners { padding-block:var(--koc-section-padding); }
+.koc-partners__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
+.koc-partners h2 { margin:0; font-size:var(--text-h2-mobile); line-height:var(--text-h2-mobile--line-height); font-weight:var(--koc-weight-regular); text-align:center; }
+.koc-partners h2 span { display:block; color:var(--color-primary-500); }
+.koc-partners h2 span+span { color:var(--color-secondary-500); }
+.koc-partners__logos { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:var(--koc-space-4); width:100%; }
 .koc-partners__row { display:contents; }
 .koc-partners__item { display:flex; align-items:center; justify-content:center; width:167px; height:88px; overflow:hidden; }
 .koc-partners__logo { display:block; position:relative; width:var(--mobile-width); height:var(--mobile-height); flex:none; overflow:hidden; }
@@ -55,12 +55,11 @@ function logoStyle(id:string) {
 .koc-partners__tommee-desktop { display:none; }
 .koc-partners__logo>.koc-partners__tommee-mobile { width:142px; height:75.4px; }
 @media(min-width:80rem) {
- .koc-partners { padding-block:96px; }
- .koc-partners__layout { gap:80px; }
- .koc-partners h2 { font-size:48px; line-height:64px; font-weight:600; }
- .koc-partners__logos { flex-direction:column; gap:4px; }
- .koc-partners__row { display:flex; align-items:center; justify-content:center; gap:80px; }
- .koc-partners__row:first-child { gap:48px; }
+ .koc-partners__layout { gap:var(--koc-space-20); }
+ .koc-partners h2 { font-size:var(--text-h1); line-height:var(--text-h1--line-height); font-weight:var(--koc-weight-semibold); }
+ .koc-partners__logos { flex-direction:column; gap:var(--koc-space-1); }
+ .koc-partners__row { display:flex; align-items:center; justify-content:center; gap:var(--koc-space-20); }
+ .koc-partners__row:first-child { gap:var(--koc-space-12); }
  .koc-partners__item { width:var(--desktop-width); height:var(--desktop-height); overflow:visible; }
  .koc-partners__logo { width:var(--desktop-width); height:var(--desktop-height); }
  .koc-partners__item--van-phuc-care .koc-partners__logo>img { height:288.91%; top:-94%; }

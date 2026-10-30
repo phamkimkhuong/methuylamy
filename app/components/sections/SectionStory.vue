@@ -29,20 +29,19 @@ const data = computed(() => props.content ?? storyContent)
 </template>
 
 <style scoped>
-.koc-story { padding-block: 40px; }
-.koc-story__layout { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+.koc-story { padding-block: var(--koc-section-padding); }
+.koc-story__layout { display: flex; flex-direction: column; align-items: center; gap: var(--koc-space-6); }
 .koc-story__heading { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; }
 .koc-story__primary { color: var(--color-primary-500); }
 .koc-story__secondary { color: var(--color-secondary-500); }
-.koc-story__lead { font: 500 16px/24px var(--font-body); color: var(--color-neutral-900); }
+.koc-story__lead { font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); color: var(--color-neutral-900); }
 .koc-story__lead { width: 100%; max-width: 1039.417px; text-align: center; }
-.koc-story__row { display: flex; flex-direction: column; align-items: stretch; gap: 24px; width: 100%; max-width: 511px; }
-.koc-story__photo { display: block; width: 100%; height: auto; aspect-ratio: 350 / 206; object-fit: fill; border-radius: 24px; }
-.koc-story__quote-content { display: flex; flex-direction: column; align-items: flex-end; gap: 24px; width: 100%; }
-.koc-story__quote-content p { width: 100%; margin: 0; white-space: pre-line; font: italic 400 16px/24px var(--font-heading); font-variation-settings: "SOFT" 0, "WONK" 1; color: var(--color-neutral-900); }
+.koc-story__row { display: flex; flex-direction: column; align-items: stretch; gap: var(--koc-space-6); width: 100%; max-width: 511px; }
+.koc-story__photo { display: block; width: 100%; height: auto; aspect-ratio: 350 / 206; object-fit: fill; border-radius: var(--koc-radius-3xl); }
+.koc-story__quote-content { display: flex; flex-direction: column; align-items: flex-end; gap: var(--koc-space-6); width: 100%; }
+.koc-story__quote-content p { width: 100%; margin: 0; white-space: pre-line; font: italic var(--koc-weight-regular) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-heading); font-variation-settings: "SOFT" 0, "WONK" 1; color: var(--color-neutral-900); }
 .koc-story__signature { display: block; flex: none; max-width: none; }
 @media (min-width: 80rem) {
-  .koc-story { padding-block: 96px; }
   .koc-story__heading { width: 736px; }
   .koc-story__primary { width: 511px; }
   .koc-story__secondary { width: 736px; }

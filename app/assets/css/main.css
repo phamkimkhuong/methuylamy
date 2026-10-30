@@ -4,6 +4,7 @@
 
 @import "tailwindcss";
 @import "./fonts.css";
+@import "./layout-tokens.css";
 @import "./figma-foundations.css";
 @import "./figma-backgrounds.css";
 
