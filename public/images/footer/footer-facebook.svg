@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Social Icons/facebook">
+<g id="facebook">
+<path d="M40 80C62.0914 80 80 62.0914 80 40C80 17.9086 62.0914 0 40 0C17.9086 0 0 17.9086 0 40C0 62.0914 17.9086 80 40 80Z" fill="url(#paint0_linear_0_130)"/>
+<path d="M54.8963 52.2331L56.6731 40.9431H45.5577V33.62C45.5577 30.5306 47.1077 27.5174 52.0863 27.5174H57.1429V17.9057C57.1429 17.9057 52.5557 17.1429 48.1723 17.1429C39.0137 17.1429 33.0334 22.5513 33.0334 32.3383V40.9431H22.8571V52.2331H33.0334V79.5271C35.0763 79.84 37.1663 80 39.2954 80C41.4246 80 43.5149 79.84 45.5577 79.5271V52.2331H54.8963Z" fill="white"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_130" x1="40" y1="0" x2="40" y2="79.7629" gradientUnits="userSpaceOnUse">
+<stop stop-color="#18ACFE"/>
+<stop offset="1" stop-color="#0163E0"/>
+</linearGradient>
+</defs>
+</svg>

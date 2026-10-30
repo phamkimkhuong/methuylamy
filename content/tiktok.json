@@ -5,7 +5,7 @@
   },
   "handle": "@methuylamy",
   "name": "Mẹ Thủy Làm Y",
-  "avatar": "/images/tiktok/avatar.png",
+  "avatar": "/images/tiktok/tiktok-avatar.png",
   "url": "https://www.tiktok.com/@methuylamy",
   "stats": {
     "following": "3",
@@ -15,32 +15,38 @@
   "videos": [
     {
       "id": "tiktok-1",
-      "title": "Mẹo vỗ ợ hơi cho bé sơ sinh chuẩn y khoa",
-      "thumbnail": "/images/tiktok/video-1.png",
-      "url": "https://www.tiktok.com/@methuylamy"
+      "title": "Nhận biết cữ chuyển giấc",
+      "thumbnail": "/images/tiktok/video-1.webp",
+      "url": "https://www.tiktok.com/@methuylamy/video/7592830843182206209"
     },
     {
       "id": "tiktok-2",
-      "title": "Cách xử lý an toàn khi trẻ sơ sinh bị ọc sữa",
-      "thumbnail": "/images/tiktok/video-2.png",
-      "url": "https://www.tiktok.com/@methuylamy"
+      "title": "4 dấu hiệu sắp mọc răng ở trẻ sơ sinh",
+      "thumbnail": "/images/tiktok/video-2.webp",
+      "url": "https://www.tiktok.com/@methuylamy/video/7542366386384014599"
     },
     {
       "id": "tiktok-3",
-      "title": "Lịch sinh hoạt EASY 3 giúp bé tự ngủ xuyên đêm",
-      "thumbnail": "/images/tiktok/video-3.png",
-      "url": "https://www.tiktok.com/@methuylamy"
+      "title": "3 động tác tập ngồi cho bé 5 tháng tuổi",
+      "thumbnail": "/images/tiktok/video-3.webp",
+      "url": "https://www.tiktok.com/@methuylamy/video/7525284137830239495"
     },
     {
       "id": "tiktok-4",
-      "title": "Kỹ thuật massage bụng giảm đầy hơi cho trẻ",
-      "thumbnail": "/images/tiktok/video-4.png",
+      "title": "Hướng dẫn massage lưng cho bé",
+      "thumbnail": "/images/tiktok/video-4.webp",
       "url": "https://www.tiktok.com/@methuylamy"
     },
     {
       "id": "tiktok-5",
-      "title": "Phân biệt 4 kiểu tiếng khóc điển hình của trẻ",
-      "thumbnail": "/images/tiktok/video-5.png",
+      "title": "10 sai lầm phổ biến khi chăm sóc trẻ",
+      "thumbnail": "/images/tiktok/video-5.webp",
+      "url": "https://www.tiktok.com/@methuylamy/video/7577626733327813895"
+    },
+    {
+      "id": "tiktok-6",
+      "title": "Nhận biết cữ chuyển giấc",
+      "thumbnail": "/images/tiktok/video-1.webp",
       "url": "https://www.tiktok.com/@methuylamy"
     }
   ]

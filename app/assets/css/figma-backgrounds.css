@@ -1,0 +1,60 @@
+/* Generated from design/reference/handoff-2026-10-24/nodes.json.
+   Angles are calculated separately at each reference frame aspect ratio. */
+:root {
+  --koc-background-navbar: #f8f8f8;
+  --koc-background-hero: #f8f8f8;
+  --koc-background-story: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+  --koc-background-tiktok: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(253 230 230 / 1) 100%);
+  --koc-background-course: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(253 230 230 / 1) 100%);
+  --koc-background-training: #f8f8f8;
+  --koc-background-values: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+  --koc-background-book-1: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(253 230 230 / 1) 100%);
+  --koc-background-book-2: #f8f8f8;
+  --koc-background-book-3: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+  --koc-background-cooperation: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+  --koc-background-process: #f8f8f8;
+  --koc-background-press: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(253 230 230 / 1) 100%);
+  --koc-background-partners: #f8f8f8;
+  --koc-background-contact: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+  --koc-background-faq: #f8f8f8;
+  --koc-background-footer: linear-gradient(180deg, rgb(248 248 248 / 1) 0%, rgb(209 228 241 / 1) 100%);
+}
+[data-design-key="navbar"] { background: var(--koc-background-navbar); }
+[data-design-key="hero"] { background: var(--koc-background-hero); }
+[data-design-key="story"] { background: var(--koc-background-story); }
+[data-design-key="tiktok"] { background: var(--koc-background-tiktok); }
+[data-design-key="course"] { background: var(--koc-background-course); }
+[data-design-key="training"] { background: var(--koc-background-training); }
+[data-design-key="values"] { background: var(--koc-background-values); }
+[data-design-key="book-1"] { background: var(--koc-background-book-1); }
+[data-design-key="book-2"] { background: var(--koc-background-book-2); }
+[data-design-key="book-3"] { background: var(--koc-background-book-3); }
+[data-design-key="cooperation"] { background: var(--koc-background-cooperation); }
+[data-design-key="process"] { background: var(--koc-background-process); }
+[data-design-key="press"] { background: var(--koc-background-press); }
+[data-design-key="partners"] { background: var(--koc-background-partners); }
+[data-design-key="contact"] { background: var(--koc-background-contact); }
+[data-design-key="faq"] { background: var(--koc-background-faq); }
+[data-design-key="footer"] { background: var(--koc-background-footer); }
+
+@media (min-width: 80rem) {
+:root {
+  --koc-background-navbar: #f8f8f8;
+  --koc-background-hero: #f8f8f8;
+  --koc-background-story: linear-gradient(229.76501148994046deg, rgb(248 248 248 / 1) 51.986555684621116%, rgb(209 228 241 / 1) 118.3928227849449%);
+  --koc-background-tiktok: linear-gradient(119.18035707708356deg, rgb(248 248 248 / 1) 21.632093001994747%, rgb(253 230 230 / 1) 123.03364855634835%);
+  --koc-background-course: linear-gradient(53.84114850943047deg, rgb(253 230 230 / 1) -3.0635893693506944%, rgb(248 248 248 / 1) 41.04132185605372%);
+  --koc-background-training: #f8f8f8;
+  --koc-background-values: linear-gradient(219.57132092307882deg, rgb(248 248 248 / 1) 49.86609614655434%, rgb(209 228 241 / 1) 124.82176644968061%);
+  --koc-background-book-1: linear-gradient(112.32967659778672deg, rgb(248 248 248 / 1) 22.089252815069884%, rgb(253 230 230 / 1) 104.37768375020975%);
+  --koc-background-book-2: #f8f8f8;
+  --koc-background-book-3: linear-gradient(239.4029058393218deg, rgb(248 248 248 / 1) 14.913270510026175%, rgb(209 228 241 / 1) 99.98921415018305%);
+  --koc-background-cooperation: linear-gradient(122.07685794159522deg, rgb(248 248 248 / 1) 37.434726159328655%, rgb(209 228 241 / 1) 100.87882678393983%);
+  --koc-background-process: #f8f8f8;
+  --koc-background-press: linear-gradient(211.96215964186695deg, rgb(248 248 248 / 1) 31.938736084434023%, rgb(253 230 230 / 1) 99.97962692885656%);
+  --koc-background-partners: #f8f8f8;
+  --koc-background-contact: linear-gradient(140.37404307273113deg, rgb(248 248 248 / 1) 27.67329613110579%, rgb(209 228 241 / 1) 107.01168387778839%);
+  --koc-background-faq: #f8f8f8;
+  --koc-background-footer: linear-gradient(179.9999991415874deg, rgb(248 248 248 / 1) 32.41589708823638%, rgb(209 228 241 / 1) 118.14023743237627%);
+}
+}

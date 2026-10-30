@@ -30,6 +30,8 @@ export const heroSchema = z.object({
 })
 
 export const storySchema = z.object({
+  // SVG export dimensions may be fractional; legacy story data can omit a signature.
+  signature: imageSchema.extend({ width: z.number().positive(), height: z.number().positive() }).optional(),
   headline: headlineSchema,
   lead: text,
   content: text,
@@ -58,6 +60,12 @@ export const tiktokSchema = z.object({
 })
 
 export const courseSchema = z.object({
+  published: z.boolean().default(false),
+  // Direct media source for the native player; page/embed URLs are not video files.
+  videoSrc: z.union([
+    text.regex(/^\/(?!\/)[^\s\\]+$/, 'Use a local /path'),
+    z.string().trim().url().refine(value => value.startsWith('https://'), 'Video URL must use HTTPS'),
+  ]).optional(),
   headline: headlineSchema,
   description: text,
   coverImage: text,
@@ -66,6 +74,7 @@ export const courseSchema = z.object({
 })
 
 export const trainingModuleSchema = z.object({
+  desktopDescription: text.optional(),
   id: text,
   icon: text,
   title: text,
@@ -80,6 +89,8 @@ export const trainingSchema = z.object({
 })
 
 export const valuePillarSchema = z.object({
+  desktopTitle: text.optional(),
+  desktopImage: text.optional(),
   id: text,
   title: text,
   description: text,
@@ -91,21 +102,6 @@ export const valuesSchema = z.object({
   headline: headlineSchema,
   items: z.array(valuePillarSchema),
 })
-
-export const bookItemSchema = z.object({
-  slug: text,
-  id: text,
-  title: text,
-  headline: headlineSchema,
-  description: text,
-  benefits: z.array(text),
-  ctaText: text,
-  url: httpsUrl,
-  cover: text,
-  reverse: z.boolean().default(false),
-})
-
-export const bookListSchema = z.array(bookItemSchema)
 
 export const cooperationModelSchema = z.object({
   id: text,
@@ -179,10 +175,15 @@ export type TiktokContent = z.infer<typeof tiktokSchema>
 export type CourseContent = z.infer<typeof courseSchema>
 export type TrainingContent = z.infer<typeof trainingSchema>
 export type ValuesContent = z.infer<typeof valuesSchema>
-export type BookItem = z.infer<typeof bookItemSchema>
 export type CooperationContent = z.infer<typeof cooperationSchema>
 export type ProcessContent = z.infer<typeof processSchema>
 export type PressArticle = z.infer<typeof pressArticleSchema>
 export type PartnerItem = z.infer<typeof partnerItemSchema>
 export type FaqItem = z.infer<typeof faqItemSchema>
 export type ContactContent = z.infer<typeof contactSchema>
+
+export const prenatalSchema = trainingSchema.extend({
+  eyebrow: text,
+  ctaText: text,
+  ctaUrl: z.string().url().refine(value => value.startsWith('https://'), 'Use HTTPS').optional(),
+})

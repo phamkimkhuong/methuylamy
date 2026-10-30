@@ -13,15 +13,15 @@
     "Thủy mong muốn được sẻ chia những giá trị 'Chuẩn Y khoa' nhất, giúp mẹ tự tin hơn trên hành trình nuôi con thuận tự nhiên nhưng đầy bản lĩnh."
   ],
   "portrait": {
-    "src": "/images/hero/hero-thuy.png",
+    "src": "/images/hero/hero-portrait.webp",
     "alt": "Mẹ Thủy Làm Y - Điều dưỡng trưởng Vạn Phúc Care",
     "width": 506,
     "height": 579
   },
   "specialties": [
-    "Chuyên gia chăm sóc trẻ sơ sinh",
-    "Điều dưỡng trưởng Vạn Phúc Care",
-    "Huấn luyện viên EASY",
+    "Chuyên môn sản nhi",
+    "Điều dưỡng trưởng tại Trung tâm ở Cữ Vạn Phúc Care",
+    "Huấn luyện viên nuôi con theo phương pháp EASY",
     "Nuôi con bằng sữa mẹ"
   ],
   "organization": {
@@ -33,40 +33,6 @@
     {
       "label": "TikTok Mẹ Thủy Làm Y",
       "url": "https://www.tiktok.com/@methuylamy"
-    }
-  ],
-  "links": [
-    {
-      "label": "Khóa học trực tuyến",
-      "url": "https://edu.vanphuccare.vn/courses"
-    },
-    {
-      "label": "Vạn Phúc Care",
-      "url": "https://vanphuccare.vn/"
-    }
-  ],
-  "experience": [
-    {
-      "title": "10+ Năm",
-      "description": "Kinh nghiệm thực chiến ngành y và chăm sóc sơ sinh"
-    },
-    {
-      "title": "352+ Trẻ",
-      "description": "Bé sơ sinh được chăm sóc trực tiếp"
-    },
-    {
-      "title": "15+ Thương hiệu",
-      "description": "Nhãn hàng mẹ & bé đồng hành chuyên môn"
-    }
-  ],
-  "credentials": [
-    {
-      "title": "Điều dưỡng chính quy",
-      "description": "Tốt nghiệp chuyên ngành Điều dưỡng với chứng chỉ hành nghề y tế"
-    },
-    {
-      "title": "Huấn luyện viên EASY",
-      "description": "Chứng nhận đào tạo phương pháp rèn tự ngủ và nếp sinh hoạt chuẩn cho bé"
     }
   ]
 }

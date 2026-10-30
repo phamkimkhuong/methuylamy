@@ -3,11 +3,11 @@
     "primary": "Quy trình Hợp Tác",
     "secondary": "Bảo chứng Chất Lượng Thương Hiệu"
   },
-  "mascot": "/images/process/mascot.png",
+  "mascot": "/images/process/process-mascot.webp",
   "steps": [
     {
       "step": "Bước 1",
-      "title": "Kiểm duyệt y khoa",
+      "title": "Kiểm duyệt nội dung",
       "description": "Rà soát pháp lý & chất lượng sản phẩm/ dịch vụ"
     },
     {

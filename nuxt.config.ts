@@ -34,12 +34,8 @@ export default defineNuxtConfig({
       title: `${profile.brandName} — ${profile.name}`,
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400..700&display=swap',
-        },
+        { rel: 'alternate icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       ],
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },

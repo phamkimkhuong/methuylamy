@@ -1,35 +1,43 @@
 {
   "headline": {
     "primary": "Đào Tạo Chuyên Sâu",
-    "secondary": "Điều Dưỡng Sơ Sinh & Bảo Mẫu Hiện Đại"
+    "secondary": "Điều Dưỡng Sản Nhi"
   },
-  "description": "Suốt những năm qua, Thủy liên tục làm việc và trau dồi. Đồng thời cũng chuyển giao kỹ năng chuyên môn và tư duy thực chiến giúp đội ngũ chăm sóc nâng cao chất lượng dịch vụ, đảm bảo an toàn tuyệt đối cho bé.",
+  "description": "Suốt những năm qua, Thủy liên tục làm việc và trau dồi. Đồng thời cũng chuyển giao kỹ năng chuyên môn và tư duy nghề nghiệp. Giúp đội ngũ nhân lực kế cận hoàn thiện kỹ năng điều dưỡng, nâng cao chất lượng dịch vụ chăm sóc, đảm bảo an toàn tuyệt đối cho mẹ và bé.",
   "modules": [
     {
       "id": "technical",
-      "icon": "/images/icons/deep-technique.svg",
+      "icon": "/images/training/icons-deep-technique.svg",
       "title": "Kỹ thuật chuyên sâu",
-      "description": "Đào tạo quy trình chăm sóc và xử lý sự cố y tế theo tiêu chuẩn bệnh viện"
+      "description": "Đào tạo quy trình chăm sóc và sơ cấp cứu theo tiêu chuẩn của Bộ Y Tế"
     },
     {
       "id": "hands-on",
-      "icon": "/images/icons/hands-on-training.svg",
+      "icon": "/images/training/icons-hands-on-training.svg",
       "title": "Thực hành bài bản",
-      "description": "Rèn luyện thao tác chuẩn xác và tác phong làm việc chuyên nghiệp trong thực tế"
+      "description": "Rèn luyện thao tác chuẩn xác và tác phong làm việc chuyên nghiệp trong thực tế",
+      "desktopDescription": "Rèn luyện thao tác chuẩn xác và tác phong làm việc chuyên nghiệp trong môi trường  thực tế"
+    },
+    {
+      "id": "breastfeeding",
+      "icon": "/images/training/training-breast-milk.svg",
+      "title": "Nuôi con bằng sữa mẹ",
+      "description": "Chuyển giao kiến thức dinh dưỡng kỹ năng xử lý các vấn đề về sữa mẹ",
+      "desktopDescription": "Chuyển giao kiến thức dinh dưỡng, kỹ năng xử lý các vấn đề về sữa mẹ."
     }
   ],
   "images": [
     {
-      "src": "/images/training/practical.png",
+      "src": "/images/training/training-practical-v2.webp",
       "alt": "Thực hành chăm sóc mô hình sơ sinh",
-      "width": 486,
-      "height": 324
+      "width": 1000,
+      "height": 667
     },
     {
-      "src": "/images/training/certificate.png",
+      "src": "/images/training/training-certificate-v2.webp",
       "alt": "Cấp chứng nhận đào tạo chuẩn y khoa",
-      "width": 486,
-      "height": 231
+      "width": 1000,
+      "height": 667
     }
   ]
 }

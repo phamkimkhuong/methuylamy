@@ -3,12 +3,18 @@
     "primary": "Hành Trình Trở Thành",
     "secondary": "Chuyên gia chăm sóc trẻ sơ sinh"
   },
-  "lead": "Mẹ Thủy Làm Y là sự kết hợp giữa Trái tim người mẹ thấu cảm và Kiến thức y khoa chuẩn xác. Tên gọi này khẳng định sứ mệnh: Đồng hành cùng các bậc phụ huynh chăm sóc bé bằng tình yêu bản năng nhưng dựa trên nền tảng khoa học vững vàng.",
-  "content": "Chào các mẹ, mình là Thủy! Với 10 năm công tác trong ngành Chăm Sóc Sức Khỏe.\n\nTại đây, mình chia sẻ kinh nghiệm chăm sóc sức khỏe và nuôi dạy con khoa học để mọi người mẹ đều có thể an tâm hơn.",
+  "lead": "Kết tinh từ trái tim người mẹ thấu cảm và kinh nghiệm điều dưỡng vững vàng. Mẹ Thủy Làm Y ra đời với sứ mệnh đồng hành cùng mọi gia đình, giản đơn mọi kỹ năng chăm sóc phức tạp, để mỗi hành trình làm mẹ luôn vẹn nguyên niềm hạnh phúc.",
+  "content": "Chào ba mẹ,\nTrải qua 3 lần sinh nở và nhiều năm gắn bó với công tác điều dưỡng sản nhi. Mình thấu hiểu những lo âu, bỡ ngỡ trong từng đêm thức trắng cùng con. Tại đây, Thủy muốn mang những kiến thức điều dưỡng chuẩn xác gói trọn vào sự dịu dàng, giúp cha mẹ biến âu lo thành niềm an tâm trọn vẹn.",
   "image": {
-    "src": "/images/story/story-thuy.png",
+    "src": "/images/story/story-photo.webp",
     "alt": "Hành trình Mẹ Thủy Làm Y",
     "width": 511,
     "height": 300
+  },
+  "signature": {
+    "src": "/images/story/story-signature.svg",
+    "alt": "Chữ ký Ms. Thanh Thủy",
+    "width": 184.437,
+    "height": 40.1228
   }
 }

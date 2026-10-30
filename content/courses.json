@@ -6,16 +6,18 @@
       "primary": "Khóa Học Chủ Động",
       "secondary": "Cùng Mẹ Thủy Chăm Con"
     },
-    "description": "Thủy mong muốn mỗi một người mẹ đều có thể tự tin, sẵn sàng cho hành trình làm mẹ. Vì thế, hệ thống khóa học CHĂM SÓC TRẺ SƠ SINH được ra đời kết hợp cùng đơn vị VẠN PHÚC CARE, Các bài giảng được thiết kế theo dạng video ngắn, dễ dàng giúp Mẹ ghi nhớ và có thêm một kỹ năng chăm sóc bé chuẩn y khoa.",
-    "coverImage": "/images/video/course-cover.png",
-    "ctaText": "Học Thử Ngay",
+    "description": "Cô Thủy mong muốn mỗi người mẹ đều có thể tự tin, sẵn sàng cho hành trình làm mẹ thiêng liêng. Bởi vậy, hệ thống khóa học trực tuyến được ra đời, với trọng tâm xoay quanh kiến thức và kỹ năng chăm sóc trẻ sơ sinh. Các bài giảng được thiết kế theo khoa học, dễ dàng tiếp thu kiến thức, giúp Mẹ ghi nhớ và sẵn sàng thực hành ngay!",
+    "coverImage": "/images/video/course-cover.webp",
+    "videoSrc": "/course-intro.mp4",
+    "ctaText": "Khám phá ngay",
     "ctaUrl": "https://edu.vanphuccare.vn/courses",
     "url": "https://edu.vanphuccare.vn/courses",
     "image": {
-      "src": "/images/video/course-cover.png",
+      "src": "/images/video/course-cover.webp",
       "alt": "Khóa học chăm sóc trẻ sơ sinh chuẩn y khoa",
       "width": 998,
       "height": 542
-    }
+    },
+    "published": true
   }
 ]

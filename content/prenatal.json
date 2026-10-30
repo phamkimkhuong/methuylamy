@@ -1,0 +1,50 @@
+{
+  "eyebrow": "LỚP HỌC TIỀN SẢN",
+  "headline": {
+    "primary": "Tự Tin Đón Con Yêu",
+    "secondary": "Đọc Vị Nhu Cầu Của Trẻ"
+  },
+  "description": "Chuẩn bị vững vàng cho hành trình làm cha mẹ. Với sự đồng hành cùng điều dưỡng trưởng Thanh Thủy, cùng cha mẹ biến kiến thức y khoa thành kỹ năng chăm con thực tế, thấu hiểu nhu cầu của con trẻ bằng tình yêu thương.",
+  "modules": [
+    {
+      "id": "professional",
+      "title": "Chuyên môn vững vàng",
+      "description": "Đồng hành cùng điều dưỡng trưởng Thanh Thủy và đội ngũ giàu kinh nghiệm",
+      "icon": "/images/prenatal/prenatal-professional.svg"
+    },
+    {
+      "id": "practice",
+      "title": "Thực hành chuẩn y khoa",
+      "description": "Trực tiếp thực hành trên mô hình búp bê y tế, đồng thời được hướng dẫn sát sao 1:1",
+      "icon": "/images/prenatal/prenatal-practice.svg"
+    },
+    {
+      "id": "companionship",
+      "title": "Bố mẹ cùng đồng hành",
+      "description": "Bố tự tin chăm sóc con và san sẻ cùng mẹ ngay từ những ngày đầu sau sinh",
+      "icon": "/images/prenatal/prenatal-companionship.svg"
+    },
+    {
+      "id": "materials",
+      "title": "Dễ hiểu, dễ áp dụng",
+      "description": "Kiến thức khoa học được chuyển thành những kỹ năng gần gũi và thực tế",
+      "icon": "/images/prenatal/prenatal-materials.svg"
+    }
+  ],
+  "images": [
+    {
+      "src": "/images/prenatal/prenatal-class.webp",
+      "alt": "Lớp học tiền sản thực tế",
+      "width": 486,
+      "height": 405
+    },
+    {
+      "src": "/images/prenatal/prenatal-parents.webp",
+      "alt": "Bố mẹ thực hành tại lớp học tiền sản",
+      "width": 486,
+      "height": 325
+    }
+  ],
+  "ctaText": "Khám phá lớp học",
+  "ctaUrl": "https://vanphuccare.vn/lop-hoc-tien-san"
+}

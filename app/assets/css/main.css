@@ -1,27 +1,375 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
+  VPC – Tailwind v4 theme (Chuyển đổi từ Figma variables)
+*/
 
-@layer base {
-  :root {
-    --color-ink: 43 37 42;
-    --color-muted: 100 89 97;
-    --color-accent: 154 51 83;
-    --color-paper: 252 249 247;
-    --color-line: 230 221 221;
-  }
-  html { scroll-padding-top: 2rem; }
-  body { @apply m-0 bg-paper font-sans text-ink antialiased; }
-  a, button { @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent; }
-  h1, h2, h3, p, a { overflow-wrap: anywhere; }
-  ::selection { background: #f5dce5; }
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./figma-foundations.css";
+@import "./figma-backgrounds.css";
+
+/* ---------- 1. Primitives (Base) ---------- */
+@theme {
+  /* Màu cơ bản bắt buộc */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Tương thích ngược với các component hiện tại */
+  --color-ink: #292929;
+  --color-muted: #525252;
+  --color-accent: #1A77BA;
+  --color-paper: #F8F8F8;
+  --color-line: #E1E1E1;
+
+  /* primary = xanh y tế VPC */
+  --color-primary-100: #D1E4F1;
+  --color-primary-200: #A3C9E3;
+  --color-primary-300: #76ADD6;
+  --color-primary-400: #4892C8;
+  --color-primary-500: #1A77BA;
+  --color-primary-600: #155F95;
+  --color-primary-700: #104770;
+  --color-primary-800: #0A304A;
+  --color-primary-900: #051825;
+
+  /* secondary = hồng mẹ & bé */
+  --color-secondary-100: #FDE6E6;
+  --color-secondary-200: #FBCDCD;
+  --color-secondary-300: #F8B4B5;
+  --color-secondary-400: #F69B9C;
+  --color-secondary-500: #F48283;
+  --color-secondary-600: #C36869;
+  --color-secondary-700: #924E4F;
+  --color-secondary-800: #623434;
+  --color-secondary-900: #311A1A;
+  --color-secondary-accent: #F85C84;
+
+  /* neutral */
+  --color-neutral-white: #FFFFFF;
+  --color-neutral-offwhite: #FAFAFA;
+  --color-neutral-100: #F8F8F8;
+  --color-neutral-200: #EBEBEB;
+  --color-neutral-300: #E1E1E1;
+  --color-neutral-400: #D8D8D8;
+  --color-neutral-500: #CECECE;
+  --color-neutral-600: #A5A5A5;
+  --color-neutral-700: #7B7B7B;
+  --color-neutral-800: #525252;
+  --color-neutral-900: #292929;
+  --color-neutral-black: #000000;
+  --color-neutral-teal: #1D3B39;
+  --color-neutral-white-30: rgb(255 255 255 / 0.3);
+
+  /* trạng thái */
+  --color-success-100: #D1F6CC;
+  --color-success-200: #A4EC99;
+  --color-success-300: #77E366;
+  --color-success-400: #49D933;
+  --color-success-500: #1CD000;
+  --color-success-600: #16A600;
+  --color-success-700: #117D00;
+  --color-success-800: #0B5300;
+  --color-success-900: #052A00;
+
+  --color-warning-100: #FFE4CC;
+  --color-warning-200: #FFC999;
+  --color-warning-300: #FFAD66;
+  --color-warning-400: #FF9233;
+  --color-warning-500: #FF7700;
+  --color-warning-600: #CC5F00;
+  --color-warning-700: #994700;
+  --color-warning-800: #663000;
+  --color-warning-900: #331800;
+
+  --color-error-100: #FFCCCC;
+  --color-error-200: #FF9999;
+  --color-error-300: #FF6666;
+  --color-error-400: #FF3333;
+  --color-error-500: #FF0000;
+  --color-error-600: #CC0000;
+  --color-error-700: #990000;
+  --color-error-800: #660000;
+  --color-error-900: #330000;
+
+  --color-info-100: #CCF1FF;
+  --color-info-200: #99E2FF;
+  --color-info-300: #66D4FF;
+  --color-info-400: #33C5FF;
+  --color-info-500: #00B7FF;
+  --color-info-600: #0092CC;
+  --color-info-700: #006E99;
+  --color-info-800: #004966;
+  --color-info-900: #002533;
+
+  /* Brand đối tác bên thứ ba */
+  --color-brand-tiktok: #FE2C55;
+  --color-brand-tiktok-hover: #E0264A;
+
+  /* Font */
+  --font-heading: "Fraunces", serif;
+  --font-body: "Manrope", sans-serif;
+  --font-sans: "Manrope", sans-serif;
+
+  /* Cỡ chữ heading Desktop (px / line-height) */
+  --text-h1: 3rem;
+  /* 48 / 64 */
+  --text-h1--line-height: 4rem;
+  --text-h2: 2.5rem;
+  /* 40 / 52 */
+  --text-h2--line-height: 3.25rem;
+  --text-h3: 2.25rem;
+  /* 36 / 48 */
+  --text-h3--line-height: 3rem;
+  --text-h4: 2rem;
+  /* 32 / 40 */
+  --text-h4--line-height: 2.5rem;
+  --text-h5: 1.75rem;
+  /* 28 / 36 */
+  --text-h5--line-height: 2.25rem;
+  --text-h6: 1.5rem;
+  /* 24 / 32 */
+  --text-h6--line-height: 2rem;
+
+  /* Cỡ chữ heading Mobile */
+  --text-h1-mobile: 2rem;
+  /* 32 / 36 */
+  --text-h1-mobile--line-height: 2.25rem;
+  --text-h2-mobile: 1.75rem;
+  /* 28 / 32 */
+  --text-h2-mobile--line-height: 2rem;
+  --text-h3-mobile: 1.5rem;
+  /* 24 / 28 */
+  --text-h3-mobile--line-height: 1.75rem;
+  --text-h4-mobile: 1.25rem;
+  /* 20 / 24 */
+  --text-h4-mobile--line-height: 1.5rem;
+
+  /* Giá tiền */
+  --text-price: 2rem;
+  /* 32 / 40 */
+  --text-price--line-height: 2.5rem;
+
+  /* Button lớn */
+  --text-button-lg: 1.25rem;
+  /* 20 / 30 */
+  --text-button-lg--line-height: 1.875rem;
+
+  /* Đổ bóng card */
+  --shadow-card: 0 1px 5px 0 rgb(0 0 0 / 0.15);
+
+  /* Đổ bóng thanh CTA dính đáy trang (Figma: shadow đen 12%, đổ lên trên) */
+  --shadow-cta: 0 -4px 16px 0 color-mix(in srgb, var(--color-neutral-black) 12%, transparent);
 }
 
-@layer components {
-  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-accent; }
-  .text-link { @apply underline decoration-accent/40 underline-offset-4 hover:decoration-accent; }
+/* ---------- 2. Semantic (1:1 theo Figma) ---------- */
+@theme inline {
+  /* Text */
+  --color-text-heading-primary-default: var(--color-primary-500);
+  --color-text-heading-secondary-default: var(--color-secondary-500);
+  --color-text-body-default: var(--color-neutral-900);
+  --color-text-body-muted: var(--color-neutral-800);
+  --color-text-inverse-default: var(--color-neutral-100);
+  --color-text-display-price-default: var(--color-primary-500);
+  --color-text-caption-default: var(--color-secondary-500);
+  --color-text-caption-dark: var(--color-secondary-600);
+  --color-text-caption-light: var(--color-secondary-200);
+  --color-text-accent-default: var(--color-primary-500);
+
+  --color-text-link-default: var(--color-primary-500);
+  --color-text-link-hover: var(--color-primary-600);
+  --color-text-link-pressed: var(--color-primary-700);
+  --color-text-link-disabled: var(--color-neutral-700);
+
+  --color-text-nav-default: var(--color-neutral-900);
+  --color-text-nav-hover: var(--color-primary-600);
+  --color-text-nav-active: var(--color-primary-500);
+
+  --color-text-button-secondary-default: var(--color-secondary-500);
+  --color-text-button-secondary-hover: var(--color-secondary-600);
+  --color-text-button-secondary-pressed: var(--color-secondary-700);
+  --color-text-button-secondary-disabled: var(--color-neutral-700);
+
+  --color-text-disabled-light: var(--color-neutral-500);
+  --color-text-disabled-default: var(--color-neutral-600);
+  --color-text-disabled-dark: var(--color-neutral-700);
+  --color-text-disabled-darker: var(--color-neutral-800);
+
+  --color-text-info-lighter: var(--color-info-200);
+  --color-text-info-light: var(--color-info-300);
+  --color-text-info-default: var(--color-info-400);
+  --color-text-info-dark: var(--color-info-500);
+
+  --color-text-success-light: var(--color-success-500);
+  --color-text-success-default: var(--color-success-600);
+  --color-text-success-dark: var(--color-success-700);
+
+  --color-text-warning-light: var(--color-warning-400);
+  --color-text-warning-default: var(--color-warning-500);
+  --color-text-warning-dark: var(--color-warning-600);
+
+  --color-text-error-lighter: var(--color-error-300);
+  --color-text-error-light: var(--color-error-400);
+  --color-text-error-default: var(--color-error-500);
+  --color-text-error-dark: var(--color-error-600);
+
+  /* Surface */
+  --color-surface-background-default: var(--color-neutral-100);
+  --color-surface-background-primary: var(--color-primary-100);
+  --color-surface-background-secondary: var(--color-secondary-100);
+
+  --color-surface-card-default: var(--color-neutral-white);
+  --color-surface-card-primary: var(--color-primary-200);
+  --color-surface-card-secondary: var(--color-secondary-200);
+
+  --color-surface-field-default: var(--color-neutral-white);
+  --color-surface-field-hover: var(--color-neutral-200);
+  --color-surface-field-selected: var(--color-primary-200);
+  --color-surface-field-disabled: var(--color-neutral-500);
+
+  --color-surface-success-default: var(--color-success-100);
+  --color-surface-warning-default: var(--color-warning-100);
+  --color-surface-error-default: var(--color-error-100);
+  --color-surface-info-default: var(--color-info-100);
+
+  --color-surface-badge-secondary: var(--color-secondary-100);
+  --color-surface-overlay: color-mix(in srgb, var(--color-neutral-900) 60%, transparent);
+
+  --color-surface-button-primary-default: var(--color-primary-500);
+  --color-surface-button-primary-hover: var(--color-primary-600);
+  --color-surface-button-primary-pressed: var(--color-primary-700);
+  --color-surface-button-primary-disabled: var(--color-neutral-600);
+
+  --color-surface-button-secondary-default: var(--color-secondary-500);
+  --color-surface-button-secondary-hover: var(--color-secondary-600);
+  --color-surface-button-secondary-pressed: var(--color-secondary-700);
+  --color-surface-button-secondary-disabled: var(--color-neutral-600);
+
+  /* Icon */
+  --color-icon-primary-default: var(--color-primary-500);
+  --color-icon-primary-light: var(--color-primary-100);
+  --color-icon-primary-dark: var(--color-primary-600);
+  --color-icon-secondary-default: var(--color-secondary-500);
+  --color-icon-secondary-light: var(--color-secondary-100);
+  --color-icon-secondary-dark: var(--color-secondary-600);
+  --color-icon-success-default: var(--color-success-500);
+  --color-icon-success-light: var(--color-success-300);
+  --color-icon-success-dark: var(--color-success-600);
+  --color-icon-warning-default: var(--color-warning-500);
+  --color-icon-warning-light: var(--color-warning-400);
+  --color-icon-warning-dark: var(--color-warning-600);
+  --color-icon-error-default: var(--color-error-500);
+  --color-icon-error-light: var(--color-error-300);
+  --color-icon-error-dark: var(--color-error-600);
+  --color-icon-info-default: var(--color-info-500);
+  --color-icon-info-light: var(--color-info-300);
+  --color-icon-info-dark: var(--color-info-600);
+  --color-icon-disabled-default: var(--color-neutral-800);
+  --color-icon-disabled-light: var(--color-neutral-400);
+  --color-icon-disabled-dark: var(--color-neutral-600);
+  --color-icon-inverse-default: var(--color-neutral-white);
+  --color-icon-inverse-white: var(--color-neutral-white-30);
+  --color-icon-inverse-dark: var(--color-neutral-900);
+
+  /* Border */
+  --color-border-primary-default: var(--color-primary-500);
+  --color-border-primary-light: var(--color-primary-400);
+  --color-border-primary-dark: var(--color-primary-600);
+  --color-border-primary-lighter: var(--color-primary-200);
+  --color-border-secondary-default: var(--color-secondary-500);
+  --color-border-secondary-light: var(--color-secondary-400);
+  --color-border-secondary-dark: var(--color-secondary-600);
+  --color-border-disabled-default: var(--color-neutral-500);
+  --color-border-disabled-light: var(--color-neutral-400);
+  --color-border-disabled-dark: var(--color-neutral-600);
+  --color-border-inverse-default: var(--color-neutral-100);
+  --color-border-divider-default: var(--color-neutral-300);
+  --color-border-success-default: var(--color-success-500);
+  --color-border-success-light: var(--color-success-300);
+  --color-border-success-dark: var(--color-success-600);
+  --color-border-warning-default: var(--color-warning-500);
+  --color-border-warning-light: var(--color-warning-400);
+  --color-border-warning-dark: var(--color-warning-600);
+  --color-border-error-default: var(--color-error-500);
+  --color-border-error-light: var(--color-error-300);
+  --color-border-error-dark: var(--color-error-600);
+  --color-border-info-default: var(--color-info-500);
+  --color-border-info-light: var(--color-info-300);
+  --color-border-info-dark: var(--color-info-600);
+  --color-border-focus-default: var(--color-primary-500);
+}
+
+/* ---------- 3. Base Styles ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+    font-family: var(--font-body);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    overflow-wrap: anywhere;
+  }
+
+  p,
+  a {
+    overflow-wrap: anywhere;
+  }
+
+  a,
+  button {
+    &:focus-visible {
+      outline: 2px solid var(--color-primary-500);
+      outline-offset: 4px;
+    }
+  }
+
+  ::selection {
+    background: var(--color-secondary-100);
+    color: var(--color-primary-500);
+  }
+}
+
+/* ---------- 4. Helper Classes ---------- */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-secondary-500);
+}
+
+.text-link {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary-500) 40%, transparent);
+  text-underline-offset: 4px;
+  color: var(--color-primary-500);
+
+  &:hover {
+    text-decoration-color: var(--color-primary-500);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
 }

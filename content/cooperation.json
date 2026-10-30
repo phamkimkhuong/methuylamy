@@ -1,28 +1,28 @@
 {
-  "eyebrow": "BẢO CHỨNG UY TÍN TỪ CHUYÊN GIA MẸ VÀ BÉ",
+  "eyebrow": "BẢO CHỨNG UY TÍN TỪ CHUYÊN GIA",
   "headline": {
     "primary": "Hình Thức Hợp Tác",
     "secondary": "Kết Nối Giá Trị Bền Vững"
   },
-  "image": "/images/cooperation/cooperation-thuy.png",
+  "image": "/images/cooperation/cooperation-portrait.webp",
   "models": [
     {
       "id": "review",
       "title": "Đánh giá chất lượng",
       "description": "Review sản phẩm/ dịch vụ chuyên sâu dưới góc nhìn y tế & khoa học",
-      "icon": "/images/icons/quality-review.svg"
+      "icon": "/images/cooperation/cooperation-quality.svg"
     },
     {
       "id": "media",
       "title": "Truyền thông sản phẩm",
       "description": "Đồng hành cùng Brand trong các chiến dịch truyền thông đại chúng",
-      "icon": "/images/icons/product-promotion.svg"
+      "icon": "/images/cooperation/cooperation-promotion.svg"
     },
     {
       "id": "workshop",
       "title": "Tư vấn & Workshop",
       "description": "Tham gia làm khách mời, cố vấn nội dung chuyên môn hoặc diễn giả cho các sự kiện",
-      "icon": "/images/icons/workshop-consulting.svg"
+      "icon": "/images/cooperation/cooperation-workshop.svg"
     }
   ]
 }

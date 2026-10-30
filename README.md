@@ -28,7 +28,7 @@ npm run preview
 - `app/components/ui/`: container, section, button/link, ảnh có width/height.
 - `app/components/profile/`: thành phần dùng dữ liệu hồ sơ; không gắn cứng Thanh Thủy trong component.
 - Mục trống tự ẩn. Không dùng bằng cấp, nhận xét, số người theo dõi, sách hoặc giá khóa học giả.
-- Nội dung khởi đầu dựa trên proposal người dùng và `elerning-vpc-v3/constants/instructorProfiles.ts`; vẫn cần PO duyệt trước production. Chưa có ảnh chân dung, font hay logo FINAL_DEV. Favicon chữ T, bảng màu và bố cục hiện tại chỉ là giá trị tạm cho trang khung.
+- Logo, font bản quyền, biểu tượng thương hiệu (Khiên y tế Mẹ Thủy Làm Y) và hệ thống Favicon (SVG/ICO/Apple Touch Icon) đã được chuẩn hóa đồng bộ theo Figma design system.
 - Nếu thêm ảnh, lưu file trong `public/images/`, nhập `portrait: {src, alt, width, height}`. Tối ưu ảnh trước khi commit. Chưa có bộ tạo srcset/AVIF tự động trong đợt này.
 - Sửa JSON rồi build lại. File tĩnh không cập nhật bằng environment runtime hoặc API tự động.
 - Type dùng được cho hồ sơ điều dưỡng, nhưng chưa tạo route hàng loạt hoặc Staff CMS.

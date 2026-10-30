@@ -1,4 +1,4 @@
-import { books, courses, profile } from '../../shared/content'
+import { courses, profile } from '../../shared/content'
 
 export default defineEventHandler((event) => {
   const site = useRuntimeConfig(event).public.portfolio
@@ -12,7 +12,6 @@ export default defineEventHandler((event) => {
     ...(profile.specialties.length ? ['## Chuyên môn', ...profile.specialties.map(item => `- ${item}`), ''] : []),
     '## Liên kết',
     ...[...profile.socialLinks, ...profile.links].map(link => `- [${link.label}](${link.url})`),
-    ...(books.length ? ['', '## Sách & tài liệu', ...books.map(item => `- [${item.title}](${item.url}): ${item.description}`)] : []),
     ...(courses.length ? ['', '## Khóa học', ...courses.map(item => `- [${item.title}](${item.url}): ${item.description}`)] : []),
     '',
   ].join('\n')

@@ -8,22 +8,24 @@
       "id": "medical",
       "title": "Kiến thức y khoa",
       "description": "Những kiến thức chăm sóc sức khỏe mẹ và bé mới nhất, chuẩn khoa học.",
-      "image": "/images/values/medical.png",
-      "icon": "/images/icons/medical-science.svg"
+      "image": "/images/values/values-medical-v2.webp",
+      "icon": "/images/values/icons-medical-science.svg",
+      "desktopTitle": "Kiến thức điều dưỡng"
     },
     {
       "id": "experience",
       "title": "Kinh nghiệm thực tế",
       "description": "Những kỹ năng chăm sóc con \"xương máu\" từ một người mẹ nuôi con nhỏ",
-      "image": "/images/values/experience.png",
-      "icon": "/images/icons/experience.svg"
+      "image": "/images/values/values-experience-v2.webp",
+      "icon": "/images/values/icons-experience.svg"
     },
     {
       "id": "empathy",
       "title": "Sự thấu cảm",
-      "description": "Lắng nghe và giải quyết tận gốc những nổi đau, nổi lo của các bậc phụ huynh",
-      "image": "/images/values/empathy.png",
-      "icon": "/images/icons/empathy.svg"
+      "description": "Lắng nghe và giải quyết tận gốc những âu lo, bận tâm của cha mẹ",
+      "image": "/images/values/values-empathy-mobile-v2.webp",
+      "icon": "/images/values/icons-empathy.svg",
+      "desktopImage": "/images/values/values-empathy-desktop-v2.webp"
     }
   ]
 }

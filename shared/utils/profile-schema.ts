@@ -8,7 +8,6 @@ export interface FaqItem {
 export function createProfileGraph(
   profile: PersonProfile,
   url: string,
-  books: ProfileResource[],
   courses: ProfileResource[],
   faqs: FaqItem[] = []
 ) {
@@ -39,10 +38,6 @@ export function createProfileGraph(
         '@type': 'Organization', '@id': profile.organization.entityId,
         name: profile.organization.name, url: profile.organization.url,
       }] : []),
-      ...books.map(book => ({
-        '@type': 'Book', '@id': `${url}#book-${book.slug}`,
-        name: book.title, description: book.description, url: book.url,
-      })),
       ...courses.map(course => ({
         '@type': 'Course', '@id': `${url}#course-${course.slug}`,
         name: course.title, description: course.description, url: course.url,
