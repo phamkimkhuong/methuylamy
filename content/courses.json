@@ -8,7 +8,7 @@
     },
     "description": "Cô Thủy mong muốn mỗi người mẹ đều có thể tự tin, sẵn sàng cho hành trình làm mẹ thiêng liêng. Bởi vậy, hệ thống khóa học trực tuyến được ra đời, với trọng tâm xoay quanh kiến thức và kỹ năng chăm sóc trẻ sơ sinh. Các bài giảng được thiết kế theo khoa học, dễ dàng tiếp thu kiến thức, giúp Mẹ ghi nhớ và sẵn sàng thực hành ngay!",
     "coverImage": "/images/video/course-cover.webp",
-    "videoSrc": "/course-intro.mp4",
+    "videoSrc": "https://edu.vanphuccare.vn/courses/san-sang-lam-me",
     "ctaText": "Khám phá ngay",
     "ctaUrl": "https://edu.vanphuccare.vn/courses",
     "url": "https://edu.vanphuccare.vn/courses",

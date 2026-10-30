@@ -20,12 +20,14 @@
     "check": "npm run test && npm run type-check && npm run lint && npm run generate && npm run verify:output"
   },
   "dependencies": {
+    "hls.js": "^1.7.4",
     "nuxt": "4.5.2",
     "vue": "3.5.43",
     "vue-router": "^5.2.0",
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@nuxt/kit": "^4.6.3",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.0.0",
     "cheerio": "^1.2.0",

@@ -1,17 +1,145 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, nextTick, onBeforeUnmount } from 'vue'
 import { designAttrs } from '~~/shared/design'
 import { courseContent } from '~~/shared/content'
 
 const props = defineProps<{ content?: typeof courseContent }>()
 const data = computed(() => props.content ?? courseContent)
 const showPlayer = ref(false)
+const isLoading = ref(false)
 const videoError = ref(false)
-watch(() => data.value.videoSrc, () => { showPlayer.value = false; videoError.value = false })
-function openPlayer() {
-  if (!data.value.videoSrc) return
+const videoRef = ref<HTMLVideoElement | null>(null)
+let hlsInstance: any = null
+
+function cleanupHls() {
+  if (hlsInstance) {
+    try {
+      hlsInstance.destroy()
+    } catch {
+      // ignore
+    }
+    hlsInstance = null
+  }
+}
+
+onBeforeUnmount(() => {
+  cleanupHls()
+})
+
+watch(() => data.value.videoSrc, () => {
+  cleanupHls()
+  showPlayer.value = false
+  isLoading.value = false
   videoError.value = false
+})
+
+async function resolveStreamUrl(src: string): Promise<string> {
+  // If src is already a direct video file or m3u8, return as-is
+  if (src.endsWith('.m3u8') || src.endsWith('.mp4')) {
+    return src
+  }
+
+  // Van Phuc Care public intro video token request
+  const res = await fetch('https://edu.vanphuccare.vn/api/u/video/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      courseId: '695b75cab1c8ae233f7ff35f',
+      isIntroVideo: true,
+      _t: Date.now(),
+    }),
+  })
+
+  if (!res.ok) {
+    throw new Error(`Token request failed: ${res.status}`)
+  }
+
+  const json = await res.json()
+  const token = json.data?.token
+  if (!token) {
+    throw new Error('Video token not found')
+  }
+
+  return `https://edu.vanphuccare.vn/api/video/stream/${token}`
+}
+
+async function openPlayer() {
+  if (!data.value.videoSrc || isLoading.value) return
+  videoError.value = false
+  isLoading.value = true
   showPlayer.value = true
+
+  cleanupHls()
+
+  try {
+    const streamUrl = await resolveStreamUrl(data.value.videoSrc)
+    await nextTick()
+
+    const videoEl = videoRef.value
+    if (!videoEl) {
+      throw new Error('Video element not found')
+    }
+
+    const isHls = streamUrl.includes('.m3u8') || streamUrl.includes('/api/video/stream/')
+
+    if (isHls) {
+      const HlsModule = await import('hls.js')
+      const Hls = HlsModule.default || HlsModule
+
+      if (Hls.isSupported()) {
+        const hls = new Hls({
+          enableWorker: true,
+          lowLatencyMode: false,
+        })
+        hlsInstance = hls
+        hls.loadSource(streamUrl)
+        hls.attachMedia(videoEl)
+
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          isLoading.value = false
+          videoEl.play().catch(() => {})
+        })
+
+        hls.on(Hls.Events.ERROR, (_event: string, errorData: any) => {
+          if (errorData?.fatal) {
+            switch (errorData.type) {
+              case Hls.ErrorTypes.NETWORK_ERROR:
+                hls.startLoad()
+                break
+              case Hls.ErrorTypes.MEDIA_ERROR:
+                hls.recoverMediaError()
+                break
+              default:
+                cleanupHls()
+                videoError.value = true
+                showPlayer.value = false
+                isLoading.value = false
+                break
+            }
+          }
+        })
+      } else if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
+        // Native HLS for Safari
+        videoEl.src = streamUrl
+        videoEl.addEventListener('loadedmetadata', () => {
+          isLoading.value = false
+          videoEl.play().catch(() => {})
+        }, { once: true })
+      } else {
+        videoEl.src = streamUrl
+        isLoading.value = false
+      }
+    } else {
+      videoEl.src = streamUrl
+      isLoading.value = false
+      videoEl.play().catch(() => {})
+    }
+  } catch {
+    cleanupHls()
+    videoError.value = true
+    showPlayer.value = false
+    isLoading.value = false
+  }
 }
 </script>
 
@@ -24,16 +152,34 @@ function openPlayer() {
       </h2>
       <p class="koc-course__description">{{ data.description }}</p>
       <div class="koc-course__media">
-        <video v-if="showPlayer && data.videoSrc" :key="data.videoSrc" class="koc-course__video" :src="data.videoSrc" controls playsinline preload="metadata" :aria-label="data.headline.primary" @error="videoError = true; showPlayer = false">
+        <video
+          v-if="showPlayer && data.videoSrc"
+          ref="videoRef"
+          class="koc-course__video"
+          controls
+          playsinline
+          controlslist="nodownload noplaybackrate"
+          :aria-label="data.headline.primary"
+          @error="videoError = true; showPlayer = false"
+        >
           Trình duyệt không hỗ trợ phát video.
         </video>
-        <template v-else>
+        <div v-if="isLoading" class="koc-course__loading" aria-label="Đang tải video...">
+          <div class="koc-course__spinner" />
+        </div>
+        <template v-if="!showPlayer">
           <div class="koc-course__cover" aria-hidden="true">
             <img :src="data.coverImage" alt="" width="998" height="542" loading="lazy" decoding="async" />
           </div>
           <!-- The Handoff contains a fully opaque light fill above the image. -->
           <div class="koc-course__fill" aria-hidden="true" />
-          <button type="button" class="koc-course__play" :disabled="!data.videoSrc" :aria-label="data.videoSrc ? 'Mở video giới thiệu khóa học' : 'Video giới thiệu khóa học đang được chuẩn bị'" @click="openPlayer">
+          <button
+            type="button"
+            class="koc-course__play"
+            :disabled="!data.videoSrc || isLoading"
+            :aria-label="data.videoSrc ? 'Mở video giới thiệu khóa học' : 'Video giới thiệu khóa học đang được chuẩn bị'"
+            @click="openPlayer"
+          >
             <span class="koc-course__mobile-play" aria-hidden="true"><img src="/images/course/course-mobile-circle.svg" width="56" height="56" alt="" /><span><img src="/images/course/course-mobile-play.svg" width="17.3205" height="15" alt="" /></span></span>
             <span class="koc-course__circle" aria-hidden="true"><img src="/images/course/course-play-circle.svg" alt="" width="86" height="86" /></span>
             <span class="koc-course__triangle" aria-hidden="true"><span><img src="/images/course/course-play-triangle.svg" alt="" width="35.0565" height="26.3377" /></span></span>
@@ -68,6 +214,9 @@ function openPlayer() {
 .koc-course__triangle > span { position: absolute; width: 47px; height: 38px; left: -4.5px; top: 4.5px; transform: rotate(90deg); }
 .koc-course__triangle img { position: absolute; left: 12.71%; top: 5.69%; }
 .koc-course__video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.koc-course__loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.4); z-index: 2; }
+.koc-course__spinner { width: 48px; height: 48px; border: 4px solid rgba(255, 255, 255, 0.3); border-top-color: #fff; border-radius: 50%; animation: koc-spin 0.8s linear infinite; }
+@keyframes koc-spin { to { transform: rotate(360deg); } }
 .koc-course__error { position: absolute; bottom: 12px; inset-inline: 16px; margin: 0; text-align: center; font: 500 12px/16px var(--font-body); }
 .koc-course__cta { width: 100%; min-height: 40px; font-size: 16px; line-height: 24px; padding:8px 16px; }
 @media (min-width: 80rem) {

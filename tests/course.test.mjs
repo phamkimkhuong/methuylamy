@@ -10,7 +10,7 @@ test('unpublished and legacy course data stay valid without a video', () => {
   assert.equal(courseSchema.parse({ ...withoutVideo, published: true }).videoSrc, undefined)
   const { published: _published, ...legacy } = withoutVideo
   assert.equal(courseSchema.parse(legacy).published, false)
-  assert.equal(courseSchema.parse(data).videoSrc, '/course-intro.mp4')
+  assert.equal(courseSchema.parse(data).videoSrc, data.videoSrc)
 })
 test('optional video source rejects unsafe or malformed URLs', () => {
   for (const videoSrc of ['', 'javascript:alert(1)', '//example.com/video.mp4', 'http://example.com/video.mp4', 'https://']) {
