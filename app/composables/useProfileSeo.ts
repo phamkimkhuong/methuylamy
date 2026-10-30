@@ -4,7 +4,7 @@ import { serializeJsonLd } from '~~/shared/utils/site'
 
 export function useProfileSeo() {
   const { url, indexable } = useRuntimeConfig().public.portfolio
-  const title = `${profile.brandName} — ${profile.name}`
+  const title = profile.brandName
   const image = profile.portrait ? new URL(profile.portrait.src, url).href : undefined
   useSeoMeta({
     title, description: profile.description,

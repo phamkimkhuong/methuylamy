@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: 'vi' },
-      title: `${profile.brandName} — ${profile.name}`,
+      title: profile.brandName,
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

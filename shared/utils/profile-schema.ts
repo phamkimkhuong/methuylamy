@@ -30,7 +30,7 @@ export function createProfileGraph(
     '@graph': [
       {
         '@type': 'ProfilePage', '@id': `${url}#profile`, url,
-        name: `${profile.brandName} — ${profile.name}`, inLanguage: 'vi-VN',
+        name: profile.brandName, inLanguage: 'vi-VN',
         mainEntity: { '@id': personId },
       },
       person,
