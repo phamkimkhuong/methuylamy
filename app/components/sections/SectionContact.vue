@@ -135,7 +135,7 @@ function handleAnotherRequest() {
   <section id="contact" v-bind="designAttrs('contact')" class="koc-contact" aria-labelledby="contact-heading">
     <BaseContainer class="contact-layout">
       <div class="contact-badge"><img src="/images/icons/training-star.svg" width="24" height="24" alt="" aria-hidden="true" />{{ data.eyebrow }}</div>
-      <h2 id="contact-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>{{ data.headline.secondary }}</span></h2>
+      <h2 id="contact-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>Hành Trình Nuôi Con <span class="koc-mobile-break"></span>Hạnh Phúc</span></h2>
       <div class="contact-columns">
         <div class="contact-form">
           <!-- TRẠNG THÁI THÀNH CÔNG (SUCCESS STATE) -->

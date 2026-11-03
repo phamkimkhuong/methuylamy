@@ -11,7 +11,7 @@ const entries=computed(()=>props.items ?? publications)
     <div class="koc-publication__badge"><img src="/images/icons/training-star.svg" width="24" height="24" alt="" aria-hidden="true" />{{item.badge}}</div>
     <div class="koc-publication__image"><img :src="item.image" :alt="item.headline.primary" :width="item.id === 'upcoming' ? 479 : 590" height="560" loading="lazy" decoding="async" /></div>
     <div class="koc-publication__content">
-     <h2 :id="item.id+'-heading'" class="koc-heading"><span>{{item.headline.primary}}</span><span>{{item.headline.secondary}}</span></h2>
+     <h2 :id="item.id+'-heading'" class="koc-heading"><span v-if="item.id === 'upcoming'">Cuốn Sách <span class="koc-mobile-break"></span>“Gối Đầu Giường”</span><span v-else>{{item.headline.primary}}</span><span>{{item.headline.secondary}}</span></h2>
      <p class="koc-publication__description"><span class="desktop-copy">{{item.description}}</span><span class="mobile-copy">{{item.mobileDescription}}</span></p>
      <ul><li v-for="benefit in item.benefits" :key="benefit"><span class="koc-publication__check"><img src="/images/icons/check-badge.svg" width="24.3506" height="23.5624" alt="" aria-hidden="true" /></span><span>{{benefit}}</span></li></ul>
      <BaseButton :href="item.ctaUrl" :disabled="!item.ctaUrl" class="koc-publication__cta"><span v-if="item.id === 'resources'" class="koc-publication__download" aria-hidden="true"><img src="/images/publications/resource-download.svg" width="20" height="17" alt="" /></span><span class="desktop-copy">{{item.ctaText}}</span><span class="mobile-copy">{{item.mobileCtaText}}</span></BaseButton>
@@ -42,11 +42,12 @@ const entries=computed(()=>props.items ?? publications)
 .koc-publication__download { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; flex:none; }
 .koc-publication__download img { display:block; width:20px; height:auto; }
 .desktop-copy { display:none; }
-.koc-publication--resources .koc-publication__image { grid-row:3; aspect-ratio:350/292; }
-.koc-publication--resources .koc-publication__image img { object-fit:contain; }
+.koc-publication--resources .koc-publication__image { grid-row:3; aspect-ratio:1651/953; overflow:visible; }
+.koc-publication--resources .koc-publication__image img { object-fit:contain; transform:scale(1.1); transform-origin:center center; }
 @media(min-width:40rem) and (max-width:79.999rem) { .koc-publication__layout { max-width:720px; } }
 @media(min-width:80rem) {
  .koc-publication--upcoming { background:linear-gradient(109.843093deg,var(--color-neutral-100) 57.484%,var(--color-secondary-100) 109.02%); }
+ .koc-publication--upcoming .koc-publication__layout { grid-template-columns:minmax(0,460fr) minmax(0,673fr); }
  .koc-publication__layout { grid-template-columns:minmax(0,479fr) minmax(0,654fr); column-gap:clamp(var(--koc-space-8),10.20833vw,147px); row-gap:var(--koc-space-6); align-items:center; }
  .koc-publication__image { grid-column:1; grid-row:1/3; height:560px; aspect-ratio:auto; }
  .koc-publication__badge { grid-column:2; grid-row:1; align-self:end; justify-self:start; text-transform:none; }
@@ -56,9 +57,10 @@ const entries=computed(()=>props.items ?? publications)
  .koc-publication__description { text-align:justify; }
  .koc-publication__cta { align-self:flex-start; padding:var(--koc-space-3) var(--koc-space-6); }
  .desktop-copy { display:inline; }.mobile-copy { display:none; }
- .koc-publication--resources .koc-publication__layout { grid-template-columns:minmax(0,654fr) minmax(0,590fr); column-gap:var(--koc-space-9); }
+ .koc-publication--resources .koc-publication__layout { grid-template-columns:minmax(0,520fr) minmax(0,724fr); column-gap:var(--koc-space-8); }
  .koc-publication--resources .koc-publication__badge { grid-column:1; }
  .koc-publication--resources .koc-publication__content { grid-column:1; }
- .koc-publication--resources .koc-publication__image { grid-column:2; grid-row:1/3; aspect-ratio:auto; }
+ .koc-publication--resources .koc-publication__image { grid-column:2; grid-row:1/3; height:auto; max-height:560px; aspect-ratio:auto; display:flex; align-items:center; justify-content:center; overflow:visible; }
+ .koc-publication--resources .koc-publication__image img { width:100%; height:auto; max-width:720px; object-fit:contain; transform:scale(1.12); transform-origin:center center; }
 }
 </style>

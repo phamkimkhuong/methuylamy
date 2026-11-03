@@ -9,7 +9,7 @@ const data = computed(() => props.content ?? cooperationContent)
   <section id="cooperation" v-bind="designAttrs('cooperation')" class="koc-cooperation" aria-labelledby="cooperation-heading">
     <BaseContainer class="koc-cooperation__layout">
       <div class="koc-cooperation__badge"><img src="/images/icons/training-star.svg" width="24" height="24" alt="" aria-hidden="true" />{{ data.eyebrow }}</div>
-      <h2 id="cooperation-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>{{ data.headline.secondary }}</span></h2>
+      <h2 id="cooperation-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>Kết Nối Giá Trị <span class="koc-mobile-break"></span>Bền Vững</span></h2>
       <div class="koc-cooperation__body">
         <div class="koc-cooperation__models">
           <article v-for="model in data.models" :key="model.id" class="koc-cooperation__model">
@@ -28,8 +28,8 @@ const data = computed(() => props.content ?? cooperationContent)
 .koc-cooperation__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
 .koc-cooperation__badge { display:flex; align-items:center; justify-content:center; gap:var(--koc-space-2); width:100%; padding:var(--koc-space-1) var(--koc-space-3); border:var(--koc-border-thin) solid var(--color-secondary-500); border-radius:var(--koc-radius-full); background:var(--color-secondary-100); color:var(--color-primary-600); font:var(--koc-weight-regular) var(--koc-body-xs-size)/var(--koc-body-xs-line) var(--font-body); }
 .koc-cooperation__badge img { flex:none; max-width:none; }
-.koc-cooperation h2 { margin:0; text-align:center; }
-.koc-cooperation h2 span { display:block; color:var(--color-primary-500); }
+.koc-cooperation h2 { margin:0; text-align:center; text-wrap:balance; }
+.koc-cooperation h2 span { display:block; color:var(--color-primary-500); text-wrap:balance; }
 .koc-cooperation h2 span+span { color:var(--color-secondary-500); }
 .koc-cooperation__body { display:grid; grid-template-columns:minmax(0,1fr); gap:var(--koc-space-6); width:100%; align-items:center; }
 .koc-cooperation__models { display:flex; flex-direction:column; gap:var(--koc-space-6); padding:var(--koc-space-4); border-radius:var(--koc-radius-2xl); background:var(--color-neutral-white); min-width:0; }

@@ -8,7 +8,7 @@ const data = computed(() => props.content ?? processContent)
 <template>
   <section id="process" v-bind="designAttrs('process')" class="koc-process" aria-labelledby="process-heading">
     <BaseContainer class="koc-process__layout">
-      <h2 id="process-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>{{ data.headline.secondary }}</span></h2>
+      <h2 id="process-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>Bảo Chứng Chất Lượng <span class="koc-mobile-break"></span>Thương Hiệu</span></h2>
       <ol class="koc-process__steps">
         <li v-for="item in data.steps" :key="item.step" class="koc-process__step">
           <div class="koc-process__top"><span class="koc-process__tag">{{ item.step }}</span><span class="koc-process__arrow" aria-hidden="true"><img src="/images/process/process-chevron.svg" width="23.9992" height="24.0001" alt="" aria-hidden="true" /></span></div>

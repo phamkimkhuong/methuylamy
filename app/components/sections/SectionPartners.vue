@@ -21,7 +21,7 @@ function logoStyle(id:string) {
 <template>
   <section id="partners" v-bind="designAttrs('partners')" class="koc-partners" aria-labelledby="partners-heading">
     <BaseContainer class="koc-partners__layout">
-      <h2 id="partners-heading" class="koc-heading"><span>Thương Hiệu Đồng Hành</span><span>Gắn Kết Chuyên Môn</span></h2>
+      <h2 id="partners-heading" class="koc-heading"><span>Thương Hiệu <span class="koc-mobile-break"></span>Đồng Hành</span><span>Gắn Kết Chuyên Môn</span></h2>
 
       <!-- Desktop: Hiển thị toàn bộ các hàng thương hiệu -->
       <div class="koc-partners__desktop">
@@ -70,14 +70,14 @@ function logoStyle(id:string) {
 <style scoped>
 .koc-partners { padding-block:var(--koc-section-padding); overflow:hidden; }
 .koc-partners__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
-.koc-partners h2 { margin:0; font-size:var(--text-h1-mobile); line-height:var(--text-h1-mobile--line-height); font-weight:var(--koc-weight-semibold); text-align:center; }
-.koc-partners h2 span { display:block; color:var(--color-primary-500); }
+.koc-partners h2 { margin:0; font-size:var(--text-h1-mobile); line-height:var(--text-h1-mobile--line-height); font-weight:var(--koc-weight-semibold); text-align:center; text-wrap:balance; }
+.koc-partners h2 span { display:block; color:var(--color-primary-500); text-wrap:balance; }
 .koc-partners h2 span+span { color:var(--color-secondary-500); }
 
 /* Desktop container hidden on mobile */
 .koc-partners__desktop { display:none; }
 
-/* Mobile Carousel marquee */
+/* Mobile Carousel marquee */ 
 .koc-partners__mobile {
   display:block;
   width:calc(100% + 2 * var(--koc-gutter));

@@ -12,7 +12,7 @@ const data = computed(() => props.content ?? valuesContent)
   <section id="values" v-bind="designAttrs('values')" data-figma-frame="Desktop - 12" data-handoff-desktop="2617:11226" data-handoff-mobile="2617:10996" class="koc-values" aria-labelledby="values-heading">
     <BaseContainer class="koc-values__layout">
       <div class="koc-values__badge"><img src="/images/icons/training-star.svg" width="24" height="24" alt="" aria-hidden="true" />TRI THỨC</div>
-      <h2 id="values-heading" class="koc-heading koc-values__heading"><span>{{ data.headline.primary }}</span><span>{{ data.headline.secondary }}</span></h2>
+      <h2 id="values-heading" class="koc-heading koc-values__heading"><span>{{ data.headline.primary }}</span><span>Cho Hành Trình <span class="koc-mobile-break"></span>Nuôi Con Vững Chãi</span></h2>
       <div v-if="data.items.length" class="koc-values__cards">
         <BaseCard v-for="item in data.items" :key="item.id" variant="feature" class="koc-values__card" :data-pillar="item.id">
           <div class="koc-values__photo"><picture><source v-if="item.desktopImage" media="(min-width: 80rem)" :srcset="item.desktopImage" /><img :src="item.image" :alt="item.title" :width="localImageDimensions[item.image]?.width ?? 340" :height="localImageDimensions[item.image]?.height ?? 250" loading="lazy" decoding="async" /></picture></div>

@@ -11,7 +11,7 @@ const data = computed(() => props.content ?? storyContent)
     <BaseContainer class="koc-story__layout">
       <h2 id="story-heading" class="koc-heading koc-story__heading" data-design-part="story-heading">
         <span class="koc-story__primary">{{ data.headline.primary }}</span>
-        <span class="koc-story__secondary">{{ data.headline.secondary }}</span>
+        <span class="koc-story__secondary">Chuyên Gia Chăm Sóc <span class="koc-mobile-break"></span>Trẻ Sơ Sinh</span>
       </h2>
       <p class="koc-story__lead" data-design-part="story-lead">{{ data.lead }}</p>
       <div class="koc-story__row">

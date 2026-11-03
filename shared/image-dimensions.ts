@@ -53,8 +53,8 @@ export const localImageDimensions: Record<string, { width: number; height: numbe
     "height": 953
   },
   "/images/publications/book-upcoming.webp": {
-    "width": 1000,
-    "height": 545
+    "width": 1408,
+    "height": 768
   },
   "/images/prenatal/prenatal-class.webp": {
     "width": 1000,

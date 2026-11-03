@@ -19,6 +19,17 @@
 .koc-heading {
   font-family: var(--font-heading); font-size: var(--koc-heading-size); line-height: var(--koc-heading-line);
   font-weight: 600; letter-spacing: 0; font-variation-settings: "SOFT" 0, "WONK" 1;
+  text-wrap: balance;
+}
+.koc-mobile-break { display: block !important; }
+@media (min-width: 80rem) {
+  .koc-mobile-break,
+  .koc-heading .koc-mobile-break,
+  h1 .koc-mobile-break,
+  h2 .koc-mobile-break,
+  span.koc-mobile-break {
+    display: inline !important;
+  }
 }
 .koc-container { margin-inline: auto; width: 100%; max-width: var(--koc-canvas-max); }
 .koc-container--page:not(.koc-container--no-padding) { padding-inline: var(--koc-gutter); }

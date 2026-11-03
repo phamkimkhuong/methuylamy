@@ -148,7 +148,7 @@ async function openPlayer() {
     <BaseContainer class="koc-course__content">
       <h2 id="course-heading" class="koc-course__heading">
         <span>{{ data.headline.primary }}</span>
-        <span>{{ data.headline.secondary }}</span>
+        <span>Cùng Mẹ Thủy <span class="koc-mobile-break"></span>Chăm Con</span>
       </h2>
       <p class="koc-course__description">{{ data.description }}</p>
       <div class="koc-course__media">
@@ -197,8 +197,8 @@ async function openPlayer() {
 .koc-course__mobile-play > span { position:absolute; left:20px; top:20px; transform:rotate(90deg); }
 .koc-course__circle,.koc-course__triangle { display:none; }
 .koc-course__content { display: flex; flex-direction: column; align-items: center; gap: var(--koc-space-6); }
-.koc-course__heading { width: 100%; margin: 0; text-align: center; font: var(--koc-weight-semibold) var(--text-h1-mobile)/var(--text-h1-mobile--line-height) var(--font-heading); }
-.koc-course__heading > span { display: block; color: var(--color-primary-500); }
+.koc-course__heading { width: 100%; margin: 0; text-align: center; font: var(--koc-weight-semibold) var(--text-h1-mobile)/var(--text-h1-mobile--line-height) var(--font-heading); text-wrap: balance; }
+.koc-course__heading > span { display: block; color: var(--color-primary-500); text-wrap: balance; }
 .koc-course__heading > span + span { color: var(--color-secondary-500); }
 .koc-course__description { margin: 0; max-width: 912px; text-align: center; font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); }
 .koc-course__media { position: relative; width: 100%; max-width: 998px; aspect-ratio: 350 / 190; border-radius: var(--koc-radius-2xl); overflow: hidden; background: var(--color-neutral-100); }

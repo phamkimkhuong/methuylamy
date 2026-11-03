@@ -15,7 +15,7 @@ const data = computed(() => props.content ?? heroContent)
         </div>
         <h1 id="hero-heading" class="koc-heading koc-hero__heading" data-design-part="hero-heading" data-figma-desktop-id="2617:11153" data-figma-mobile-id="2617:10931">
           <span class="koc-hero__title-primary">{{ data.headline.primary }}</span>
-          <span class="koc-hero__title-secondary">{{ data.headline.secondary }}</span>
+          <span class="koc-hero__title-secondary">Trên Hành Trình <span class="koc-mobile-break"></span>Làm Mẹ</span>
         </h1>
         <p class="koc-hero__description" data-design-part="hero-description" data-figma-desktop-id="2617:11156" data-figma-mobile-id="2617:10934">{{ data.description }}</p>
         <ul class="koc-hero__credentials" aria-label="Chuyên môn">
@@ -42,9 +42,9 @@ const data = computed(() => props.content ?? heroContent)
 .koc-hero__profile { display: flex; flex-direction: column; align-items: center; gap: var(--koc-space-6); width: 100%; max-width: var(--hero-profile-width); min-width: 0; }
 .koc-hero__badge { display: inline-flex; align-items: center; gap: var(--koc-space-2); padding: var(--koc-space-1) var(--koc-space-3); border: var(--koc-border-thin) solid var(--color-secondary-500); border-radius: var(--koc-radius-full); background: var(--color-secondary-100); color: var(--color-primary-600); font-size: var(--koc-body-xs-size); line-height: var(--koc-body-xs-line); font-weight: var(--koc-weight-regular); }
 .koc-hero__badge img { flex: none; }
-.koc-hero__heading { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; }
-.koc-hero__title-primary { color: var(--color-primary-500); }
-.koc-hero__title-secondary { color: var(--color-secondary-500); width: 258px; max-width: 100%; }
+.koc-hero__heading { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; text-wrap: balance; }
+.koc-hero__title-primary { color: var(--color-primary-500); text-wrap: balance; }
+.koc-hero__title-secondary { color: var(--color-secondary-500); width: 100%; text-wrap: balance; }
 .koc-hero__description { width: 100%; color: var(--color-neutral-900); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); font-weight: var(--koc-weight-medium); text-align: center; }
 .koc-hero__credentials { display: flex; flex-direction: column; gap: var(--koc-space-6); width: 100%; }
 .koc-hero__credentials li { display: flex; align-items: center; gap: var(--koc-space-2); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); color: var(--color-neutral-900); }

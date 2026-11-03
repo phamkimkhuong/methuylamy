@@ -50,7 +50,7 @@ function revealVideo(event: FocusEvent) {
   <section id="tiktok" v-bind="designAttrs('tiktok')" data-figma-frame="Desktop - 20" class="koc-tiktok">
     <BaseContainer class="koc-tiktok__layout">
       <h2 class="koc-heading koc-tiktok__heading" data-design-part="tiktok-heading">
-        <span>{{ data.headline.primary }}</span><span>{{ data.headline.secondary }}</span>
+        <span>{{ data.headline.primary }}</span><span>Qua Tiktok <span class="koc-mobile-break"></span>Mẹ Thủy Làm Y</span>
       </h2>
       <div class="koc-tiktok__card" data-design-part="tiktok-card">
         <div class="koc-tiktok__header" data-design-part="tiktok-header">
