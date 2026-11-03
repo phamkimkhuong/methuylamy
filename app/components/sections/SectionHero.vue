@@ -51,10 +51,10 @@ const data = computed(() => props.content ?? heroContent)
 .koc-hero__check-slot { position: relative; flex: 0 0 24.351px; height: 23.463px; }
 .koc-hero__check-slot img { position: absolute; top: 0; left: 0; max-width: none; }
 .koc-hero__stats { display: flex; flex-direction: column; align-items: stretch; gap: var(--koc-space-2); width: 100%; padding: var(--koc-space-4); border-radius: var(--koc-radius-xl); background: var(--color-neutral-white); border: var(--koc-border-thin) solid var(--color-neutral-500); box-shadow: var(--koc-feature-shadow); }
-.koc-hero__stat { display: flex; align-items: center; gap: var(--koc-space-4); padding: var(--koc-space-2); border-radius: var(--koc-radius-xl); }
-.koc-hero__stat-copy { width: 251px; max-width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: var(--koc-space-2); }
-.koc-hero__stat dt { order: 1; color: var(--color-neutral-800); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); }
-.koc-hero__stat dd { width: 100%; text-align: center; color: var(--color-neutral-900); font-size: var(--koc-body-2xl-size); line-height: var(--koc-body-2xl-line); }
+.koc-hero__stat { display: flex; align-items: flex-start; gap: var(--koc-space-4); padding: var(--koc-space-2); border-radius: var(--koc-radius-xl); }
+.koc-hero__stat-copy { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: var(--koc-space-2); }
+.koc-hero__stat dt { order: 1; width: 100%; text-align: left; color: var(--color-neutral-800); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); }
+.koc-hero__stat dd { width: 100%; text-align: left; color: var(--color-neutral-900); font-size: var(--koc-body-2xl-size); line-height: var(--koc-body-2xl-line); }
 .koc-hero__divider { display: none; }
 /* Figma MCP asset already contains the crop, normalized to the source raster size. */
 .koc-hero__portrait { display: block; width: 100%; max-width: var(--hero-photo-width); aspect-ratio: 350 / 400; height: auto; object-fit: fill; border-radius: var(--koc-radius-xl); }
@@ -66,10 +66,10 @@ const data = computed(() => props.content ?? heroContent)
   .koc-hero__title-secondary { width: 100%; }
   .koc-hero__description { text-align: justify; }
   .koc-hero__stats { flex-direction: row; align-items: center; justify-content: center; padding: var(--koc-space-4) var(--koc-space-10); }
-  .koc-hero__stat { flex: none; padding: var(--koc-space-3) var(--koc-space-2); }
+  .koc-hero__stat { flex: none; align-items: center; padding: var(--koc-space-3) var(--koc-space-2); }
   .koc-hero__stat-copy { width: auto; }
-  .koc-hero__stat dt { font-size: var(--koc-body-xl-size); line-height: var(--koc-body-xl-line); white-space: nowrap; }
-  .koc-hero__stat dd { white-space: nowrap; }
+  .koc-hero__stat dt { width: auto; font-size: var(--koc-body-xl-size); line-height: var(--koc-body-xl-line); white-space: nowrap; }
+  .koc-hero__stat dd { width: auto; white-space: nowrap; }
   .koc-hero__divider { display: block; position: relative; width: 0; height: 68px; }
   .koc-hero__divider img { position: absolute; top: -.5px; left: -.5px; max-width: none; }
   .koc-hero__portrait { flex: 0 0 var(--hero-photo-width); width: var(--hero-photo-width); height: 579px; }

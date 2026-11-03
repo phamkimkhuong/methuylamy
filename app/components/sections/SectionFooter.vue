@@ -68,7 +68,6 @@ const footerEmail = 'info@methuylamy.vn'
 .footer-social { display:flex; padding:var(--koc-space-1) var(--koc-space-2); align-items:center; }
 .footer-social-icon { display:block; width:36px; height:36px; }
 .footer-facebook { display:block; max-width:none; transform:scale(.45); transform-origin:top left; }
-.footer-prenatal { display:none; }
 .koc-footer a:hover { color:var(--color-primary-500); text-decoration:underline; }
 .koc-footer a:focus-visible { outline:2px solid var(--color-primary-500); outline-offset:var(--koc-space-1); border-radius:4px; }
 @media(min-width:40rem) and (max-width:79.999rem) { .footer-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); } }

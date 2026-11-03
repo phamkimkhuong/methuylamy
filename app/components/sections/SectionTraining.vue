@@ -52,7 +52,7 @@ const data = computed(() => props.content ?? trainingContent)
 .koc-training__icon img { flex: none; max-width: none; }
 .koc-training__module-copy { display: flex; flex: 1; flex-direction: column; gap: 1px; min-width: 0; min-height: 101px; }
 .koc-training__module-copy h3 { margin: 0; color: var(--color-primary-500); font: var(--koc-weight-medium) var(--koc-body-xl-size)/var(--koc-body-xl-line) var(--font-body); }
-.koc-training__module-copy p { margin: 0; color: var(--color-neutral-800); font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); }
+.koc-training__module-copy p { margin: 0; color: var(--color-neutral-800); font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); text-wrap: pretty; }
 @media (min-width: 40rem) and (max-width: 79.999rem) { .koc-training__layout { max-width: 720px; } }
 @media (min-width: 80rem) {
   .koc-training__layout { flex-direction: row; justify-content: space-between; gap: 26.035px; }

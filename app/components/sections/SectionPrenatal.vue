@@ -39,7 +39,7 @@ const data = computed(() => props.content ?? prenatalContent)
 .koc-prenatal__icon { display:flex; align-items:center; justify-content:center; flex:none; width:50px; height:50px; border-radius:50%; background:var(--color-secondary-100); }
 .koc-prenatal__copy { flex:1; min-width:0; min-height:101px; display:flex; flex-direction:column; gap: 1px; }
 .koc-prenatal__copy h3 { margin:0; color:var(--color-primary-500); font: var(--koc-weight-medium) var(--koc-body-xl-size)/var(--koc-body-xl-line) var(--font-body); }
-.koc-prenatal__copy p { margin:0; font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); }
+.koc-prenatal__copy p { margin:0; font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); text-wrap: pretty; }
 .koc-prenatal__cta { width:100%; padding: var(--koc-space-2) var(--koc-space-4); font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); }
 @media(min-width:40rem) and (max-width:79.999rem) { .koc-prenatal__layout { max-width:720px; } }
 @media(min-width:80rem) {

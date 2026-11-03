@@ -14,7 +14,7 @@ const entries=computed(()=>props.items ?? publications)
      <h2 :id="item.id+'-heading'" class="koc-heading"><span>{{item.headline.primary}}</span><span>{{item.headline.secondary}}</span></h2>
      <p class="koc-publication__description"><span class="desktop-copy">{{item.description}}</span><span class="mobile-copy">{{item.mobileDescription}}</span></p>
      <ul><li v-for="benefit in item.benefits" :key="benefit"><span class="koc-publication__check"><img src="/images/icons/check-badge.svg" width="24.3506" height="23.5624" alt="" aria-hidden="true" /></span><span>{{benefit}}</span></li></ul>
-     <BaseButton :href="item.ctaUrl" :disabled="!item.ctaUrl" class="koc-publication__cta"><span v-if="item.id === 'resources'" class="koc-publication__download" aria-hidden="true"><img src="/images/publications/resource-download.svg" width="24" height="20.5714" alt="" /></span><span class="desktop-copy">{{item.ctaText}}</span><span class="mobile-copy">{{item.mobileCtaText}}</span></BaseButton>
+     <BaseButton :href="item.ctaUrl" :disabled="!item.ctaUrl" class="koc-publication__cta"><span v-if="item.id === 'resources'" class="koc-publication__download" aria-hidden="true"><img src="/images/publications/resource-download.svg" width="20" height="17" alt="" /></span><span class="desktop-copy">{{item.ctaText}}</span><span class="mobile-copy">{{item.mobileCtaText}}</span></BaseButton>
     </div>
    </BaseContainer>
   </section>
@@ -39,8 +39,8 @@ const entries=computed(()=>props.items ?? publications)
 .koc-publication__check img { max-width:none; }
 .koc-publication__cta { align-self:stretch; padding:var(--koc-space-2) var(--koc-space-4); font:var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); gap:var(--koc-space-3); }
 .koc-publication__cta:disabled { opacity:1; cursor:default; }
-.koc-publication__download { position:relative; width:9px; height:15px; flex:none; }
-.koc-publication__download img { position:absolute; left:-7px; top:-8.8095px; max-width:none; }
+.koc-publication__download { display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; flex:none; }
+.koc-publication__download img { display:block; width:20px; height:auto; }
 .desktop-copy { display:none; }
 .koc-publication--resources .koc-publication__image { grid-row:3; aspect-ratio:350/292; }
 .koc-publication--resources .koc-publication__image img { object-fit:contain; }

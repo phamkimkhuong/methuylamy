@@ -23,7 +23,7 @@ const data = computed(() => props.content ?? processContent)
 <style scoped>
 .koc-process { padding-block:var(--koc-section-padding); }
 .koc-process__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
-.koc-process h2 { margin:0; text-align:center; font-size:var(--text-h2-mobile); line-height:var(--text-h2-mobile--line-height); font-weight:var(--koc-weight-regular); }
+.koc-process h2 { margin:0; text-align:center; font-size:var(--text-h1-mobile); line-height:var(--text-h1-mobile--line-height); font-weight:var(--koc-weight-semibold); }
 .koc-process h2 span { display:block; color:var(--color-primary-500); }
 .koc-process h2 span+span { color:var(--color-secondary-500); }
 .koc-process__steps { display:grid; grid-template-columns:minmax(0,1fr); gap:var(--koc-space-6); width:100%; margin:0; padding:0; list-style:none; }

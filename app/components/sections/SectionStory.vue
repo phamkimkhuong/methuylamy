@@ -42,9 +42,9 @@ const data = computed(() => props.content ?? storyContent)
 .koc-story__quote-content p { width: 100%; margin: 0; white-space: pre-line; font: italic var(--koc-weight-regular) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-heading); font-variation-settings: "SOFT" 0, "WONK" 1; color: var(--color-neutral-900); }
 .koc-story__signature { display: block; flex: none; max-width: none; }
 @media (min-width: 80rem) {
-  .koc-story__heading { width: 736px; }
-  .koc-story__primary { width: 511px; }
-  .koc-story__secondary { width: 736px; }
+  .koc-story__heading { width: 100%; max-width: 800px; }
+  .koc-story__primary { width: auto; }
+  .koc-story__secondary { width: auto; white-space: nowrap; }
   .koc-story__row { flex-direction: row; gap: 18px; max-width: 1040px; align-items: stretch; }
   .koc-story__photo { width: 511px; height: 300.344px; flex: none; }
   .koc-story__quote { display: flex; align-items: center; justify-content: center; flex: 0 0 511px; min-width: 0; min-height: 300.344px; }

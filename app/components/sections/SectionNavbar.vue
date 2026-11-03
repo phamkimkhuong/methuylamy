@@ -114,7 +114,7 @@ onBeforeUnmount(() => {
       <nav class="koc-navbar__links" aria-label="Điều hướng chính">
         <a v-for="link in navLinks" :key="link.href" :href="link.href">{{ link.label }}</a>
       </nav>
-      <BaseButton href="#contact" size="lg" class="koc-navbar__contact">Liên hệ hợp tác</BaseButton>
+      <BaseButton href="#contact" size="md" class="koc-navbar__contact">Liên hệ hợp tác</BaseButton>
       <button ref="opener" type="button" class="koc-navbar__toggle" aria-label="Mở menu điều hướng" aria-controls="mobile-navigation" :aria-expanded="isDrawerOpen" @click="openDrawer">
         <img src="/images/navbar/menu.svg" alt="" aria-hidden="true" width="24" height="24" />
       </button>

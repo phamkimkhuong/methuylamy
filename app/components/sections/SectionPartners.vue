@@ -22,7 +22,9 @@ function logoStyle(id:string) {
   <section id="partners" v-bind="designAttrs('partners')" class="koc-partners" aria-labelledby="partners-heading">
     <BaseContainer class="koc-partners__layout">
       <h2 id="partners-heading" class="koc-heading"><span>Thương Hiệu Đồng Hành</span><span>Gắn Kết Chuyên Môn</span></h2>
-      <div class="koc-partners__logos">
+
+      <!-- Desktop: Hiển thị toàn bộ các hàng thương hiệu -->
+      <div class="koc-partners__desktop">
         <div v-for="(row,index) in rows" :key="index" class="koc-partners__row">
           <component :is="partner.website ? 'a' : 'span'" v-for="partner in row" :key="partner.id" :href="partner.website" :target="partner.website ? '_blank' : undefined" :rel="partner.website ? 'noopener noreferrer' : undefined" :title="partner.name" class="koc-partners__item" :class="'koc-partners__item--'+partner.id" :style="logoStyle(partner.id)">
             <span class="koc-partners__logo">
@@ -35,29 +37,101 @@ function logoStyle(id:string) {
           </component>
         </div>
       </div>
+
+      <!-- Mobile: 1 hàng ngang chạy carousel marquee từ trái sang phải -->
+      <div class="koc-partners__mobile">
+        <div class="koc-partners__track">
+          <div class="koc-partners__group">
+            <component :is="partner.website ? 'a' : 'span'" v-for="partner in items" :key="'m1-'+partner.id" :href="partner.website" :target="partner.website ? '_blank' : undefined" :rel="partner.website ? 'noopener noreferrer' : undefined" :title="partner.name" class="koc-partners__item" :class="'koc-partners__item--'+partner.id" :style="logoStyle(partner.id)">
+              <span class="koc-partners__logo">
+                <template v-if="partner.id === 'tommee-tippee'">
+                  <img class="koc-partners__tommee-mobile" src="/images/partners/partner-tommee-mobile.svg" width="142" height="75.4" :alt="partner.name" loading="lazy" />
+                </template>
+                <img v-else :src="partner.logo" v-bind="handoffMediaDimensions[partner.logo] ?? {width:142,height:88}" :alt="partner.name" loading="lazy" decoding="async" />
+              </span>
+            </component>
+          </div>
+          <div class="koc-partners__group" aria-hidden="true">
+            <component :is="partner.website ? 'a' : 'span'" v-for="partner in items" :key="'m2-'+partner.id" :href="partner.website" :target="partner.website ? '_blank' : undefined" :rel="partner.website ? 'noopener noreferrer' : undefined" tabindex="-1" :title="partner.name" class="koc-partners__item" :class="'koc-partners__item--'+partner.id" :style="logoStyle(partner.id)">
+              <span class="koc-partners__logo">
+                <template v-if="partner.id === 'tommee-tippee'">
+                  <img class="koc-partners__tommee-mobile" src="/images/partners/partner-tommee-mobile.svg" width="142" height="75.4" :alt="partner.name" loading="lazy" />
+                </template>
+                <img v-else :src="partner.logo" v-bind="handoffMediaDimensions[partner.logo] ?? {width:142,height:88}" :alt="partner.name" loading="lazy" decoding="async" />
+              </span>
+            </component>
+          </div>
+        </div>
+      </div>
     </BaseContainer>
   </section>
 </template>
 
 <style scoped>
-.koc-partners { padding-block:var(--koc-section-padding); }
+.koc-partners { padding-block:var(--koc-section-padding); overflow:hidden; }
 .koc-partners__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
-.koc-partners h2 { margin:0; font-size:var(--text-h2-mobile); line-height:var(--text-h2-mobile--line-height); font-weight:var(--koc-weight-regular); text-align:center; }
+.koc-partners h2 { margin:0; font-size:var(--text-h1-mobile); line-height:var(--text-h1-mobile--line-height); font-weight:var(--koc-weight-semibold); text-align:center; }
 .koc-partners h2 span { display:block; color:var(--color-primary-500); }
 .koc-partners h2 span+span { color:var(--color-secondary-500); }
-.koc-partners__logos { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:var(--koc-space-4); width:100%; }
-.koc-partners__row { display:contents; }
-.koc-partners__item { display:flex; align-items:center; justify-content:center; width:167px; height:88px; overflow:hidden; }
+
+/* Desktop container hidden on mobile */
+.koc-partners__desktop { display:none; }
+
+/* Mobile Carousel marquee */
+.koc-partners__mobile {
+  display:block;
+  width:calc(100% + 2 * var(--koc-gutter));
+  margin-inline:calc(-1 * var(--koc-gutter));
+  overflow:hidden;
+  mask-image:linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image:linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+.koc-partners__track {
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:koc-partners-marquee 28s linear infinite;
+}
+@media (hover: hover) {
+  .koc-partners__track:hover {
+    animation-play-state:paused;
+  }
+}
+.koc-partners__track:focus-within {
+  animation-play-state:paused;
+}
+.koc-partners__group {
+  display:flex;
+  align-items:center;
+  gap:var(--koc-space-4);
+  padding-right:var(--koc-space-4);
+}
+@keyframes koc-partners-marquee {
+  0% { transform:translate3d(0, 0, 0); }
+  100% { transform:translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .koc-partners__track {
+    animation:none;
+    overflow-x:auto;
+    width:100%;
+    scrollbar-width:none;
+  }
+}
+
+.koc-partners__item { display:flex; align-items:center; justify-content:center; width:167px; height:88px; overflow:hidden; flex:none; }
 .koc-partners__logo { display:block; position:relative; width:var(--mobile-width); height:var(--mobile-height); flex:none; overflow:hidden; }
 .koc-partners__logo>img { position:absolute; width:100%; height:100%; max-width:none; object-fit:cover; }
 .koc-partners__item--van-phuc-care .koc-partners__logo>img { height:288.93%; top:-94.02%; left:0; }
 .koc-partners__item--lam-ha-sg .koc-partners__logo>img { height:268.67%; width:132.89%; top:-84.26%; left:-17.06%; }
 .koc-partners__tommee-desktop { display:none; }
 .koc-partners__logo>.koc-partners__tommee-mobile { width:142px; height:75.4px; }
+
 @media(min-width:80rem) {
  .koc-partners__layout { gap:var(--koc-space-20); }
  .koc-partners h2 { font-size:var(--text-h1); line-height:var(--text-h1--line-height); font-weight:var(--koc-weight-semibold); }
- .koc-partners__logos { flex-direction:column; gap:var(--koc-space-1); }
+ .koc-partners__mobile { display:none; }
+ .koc-partners__desktop { display:flex; flex-direction:column; gap:var(--koc-space-1); width:100%; }
  .koc-partners__row { display:flex; align-items:center; justify-content:center; gap:var(--koc-space-20); }
  .koc-partners__row:first-child { gap:var(--koc-space-12); }
  .koc-partners__item { width:var(--desktop-width); height:var(--desktop-height); overflow:visible; }

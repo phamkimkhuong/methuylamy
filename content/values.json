@@ -23,9 +23,8 @@
       "id": "empathy",
       "title": "Sự thấu cảm",
       "description": "Lắng nghe và giải quyết tận gốc những âu lo, bận tâm của cha mẹ",
-      "image": "/images/values/values-empathy-mobile-v2.webp",
-      "icon": "/images/values/icons-empathy.svg",
-      "desktopImage": "/images/values/values-empathy-desktop-v2.webp"
+      "image": "/images/values/values-empathy-desktop-v2.webp",
+      "icon": "/images/values/icons-empathy.svg"
     }
   ]
 }

@@ -28,10 +28,6 @@ export const localImageDimensions: Record<string, { width: number; height: numbe
     "width": 750,
     "height": 500
   },
-  "/images/values/values-empathy-mobile-v2.webp": {
-    "width": 750,
-    "height": 422
-  },
   "/images/press/press-0.webp": {
     "width": 700,
     "height": 1050
@@ -52,9 +48,9 @@ export const localImageDimensions: Record<string, { width: number; height: numbe
     "width": 1000,
     "height": 563
   },
-  "/images/publications/resource-library.webp": {
-    "width": 1000,
-    "height": 707
+  "/images/publications/kho-tai-lieu.webp": {
+    "width": 1651,
+    "height": 953
   },
   "/images/publications/book-upcoming.webp": {
     "width": 1000,

@@ -27,7 +27,7 @@ const items = computed(() => props.articles ?? pressList)
 <style scoped>
 .koc-press { padding-block:var(--koc-section-padding); }
 .koc-press__layout { display:flex; flex-direction:column; align-items:center; gap:var(--koc-space-6); }
-.koc-press h2 { margin:0; font-size:var(--text-h2-mobile); line-height:var(--text-h2-mobile--line-height); font-weight:var(--koc-weight-regular); text-align:center; }
+.koc-press h2 { margin:0; font-size:var(--text-h1-mobile); line-height:var(--text-h1-mobile--line-height); font-weight:var(--koc-weight-semibold); text-align:center; }
 .koc-press h2 span { display:block; color:var(--color-primary-500); }
 .koc-press h2 span+span { color:var(--color-secondary-500); }
 .koc-press__articles { display:grid; grid-template-columns:minmax(0,1fr); gap:var(--koc-space-6); width:100%; }
