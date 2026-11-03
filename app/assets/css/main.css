@@ -304,7 +304,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 2rem;
+    scroll-padding-top: var(--koc-anchor-offset, 96px);
     font-family: var(--font-body);
   }
 
@@ -374,3 +374,4 @@
     transition: none !important;
   }
 }
+@media (min-width: 80rem) { html { scroll-padding-top: var(--koc-anchor-offset, 128px); } }

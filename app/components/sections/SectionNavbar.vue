@@ -9,6 +9,78 @@ const navLinks = [
   { label: 'Dành cho đối tác', href: '#cooperation' },
 ]
 const isDrawerOpen = ref(false)
+const header = ref<HTMLElement | null>(null)
+const isCompact = ref(false)
+const isHidden = ref(false)
+const headerSpace = ref<number>()
+let lastY = 0
+let direction = 0
+let distance = 0
+let frame = 0
+let anchorUntil = 0
+let anchorTimer: ReturnType<typeof setTimeout> | undefined
+let observer: ResizeObserver | undefined
+let previousAnchorOffset = ''
+
+function measureHeader() {
+  const row = header.value?.firstElementChild as HTMLElement | null
+  if (!row) return
+  const expandedPadding = parseFloat(getComputedStyle(row).getPropertyValue('--koc-header-padding')) || 24
+  const currentPadding = parseFloat(getComputedStyle(row).paddingTop)
+  const height = Math.ceil(row.getBoundingClientRect().height + 2 * (expandedPadding - currentPadding))
+  headerSpace.value = height
+  document.documentElement.style.setProperty('--koc-anchor-offset', (height + 16) + 'px')
+}
+function resetDirection() {
+  lastY = Math.max(0, window.scrollY)
+  direction = 0
+  distance = 0
+}
+function updateScroll() {
+  frame = 0
+  const y = Math.max(0, Math.min(window.scrollY, document.documentElement.scrollHeight - window.innerHeight))
+  const delta = y - lastY
+  lastY = y
+  isCompact.value = y > (headerSpace.value ?? 112)
+  const focused = document.activeElement
+  const editing = focused instanceof HTMLElement && focused.matches('input,textarea,select,[contenteditable="true"]')
+  if (!isCompact.value || desktopMedia?.matches || isDrawerOpen.value || (header.value?.contains(focused) && focused instanceof HTMLElement && focused.matches(':focus-visible')) || performance.now() < anchorUntil) {
+    isHidden.value = false
+    direction = 0
+    distance = 0
+    return
+  }
+  // Browser scrolling to an input / opening the virtual keyboard is not navigation intent.
+  if (editing) { direction = 0; distance = 0; return }
+  if (!delta) return
+  const nextDirection = Math.sign(delta)
+  distance = nextDirection === direction ? distance + Math.abs(delta) : Math.abs(delta)
+  direction = nextDirection
+  if (distance >= (direction > 0 ? 32 : 16)) {
+    isHidden.value = direction > 0
+    distance = 0
+  }
+}
+function onScroll() {
+  if (!frame) frame = requestAnimationFrame(updateScroll)
+}
+function holdForAnchor() {
+  isHidden.value = false
+  anchorUntil = performance.now() + 1600
+  clearTimeout(anchorTimer)
+  anchorTimer = setTimeout(() => { anchorUntil = 0; resetDirection() }, 1600)
+}
+function onAnchorClick(event: MouseEvent) {
+  if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
+  const link = event.target instanceof Element ? event.target.closest('a[href]') : null
+  if (!link) return
+  const url = new URL(link.getAttribute('href')!, location.href)
+  if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search && url.hash) holdForAnchor()
+}
+function onUserScrollIntent() { anchorUntil = 0; clearTimeout(anchorTimer) }
+function onHeaderFocus() { isHidden.value = false; resetDirection() }
+function onResize() { measureHeader(); resetDirection(); onScroll() }
+
 const activeSection = ref(navLinks[0]?.href ?? '#training')
 const opener = ref<HTMLButtonElement | null>(null)
 const brand = ref<HTMLAnchorElement | null>(null)
@@ -33,6 +105,8 @@ async function openDrawer() {
   previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
   background = document.getElementById('__nuxt')
   previousInert = background?.inert ?? false
+  isHidden.value = false
+  resetDirection()
   isDrawerOpen.value = true
   document.body.style.overflow = 'hidden'
   await nextTick()
@@ -44,12 +118,14 @@ function closeDrawer(restoreFocus = true) {
   if (!isDrawerOpen.value) return
   isDrawerOpen.value = false
   restoreBackground()
+  resetDirection()
   if (restoreFocus) (previousFocus?.isConnected ? previousFocus : opener.value)?.focus({ preventScroll: true })
 }
 async function followLink(event: MouseEvent, href: string) {
   // Keep modified clicks native; ordinary in-page links close before scrolling.
   if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return
   event.preventDefault()
+  holdForAnchor()
   activeSection.value = href
   closeDrawer(false)
   await nextTick()
@@ -83,11 +159,14 @@ function onKeydown(event: KeyboardEvent) {
   else if (!event.shiftKey && (current === last || !drawer.value.contains(current))) { event.preventDefault(); first.focus() }
 }
 function onBreakpoint() {
+  isHidden.value = false
+  onResize()
   if (!desktopMedia?.matches || !isDrawerOpen.value) return
   closeDrawer(false)
   brand.value?.focus({ preventScroll: true })
 }
 function onHashChange() {
+  holdForAnchor()
   if (navLinks.some(link => link.href === location.hash)) activeSection.value = location.hash
 }
 onMounted(() => {
@@ -95,10 +174,33 @@ onMounted(() => {
   desktopMedia.addEventListener('change', onBreakpoint)
   document.addEventListener('keydown', onKeydown)
   window.addEventListener('hashchange', onHashChange)
+  previousAnchorOffset = document.documentElement.style.getPropertyValue('--koc-anchor-offset')
+  measureHeader()
+  observer = new ResizeObserver(measureHeader)
+  if (header.value?.firstElementChild) observer.observe(header.value.firstElementChild)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onResize)
+  window.addEventListener('pageshow', onResize)
+  window.addEventListener('wheel', onUserScrollIntent, { passive: true })
+  window.addEventListener('touchstart', onUserScrollIntent, { passive: true })
+  document.addEventListener('click', onAnchorClick, true)
+  resetDirection()
+  updateScroll()
   onHashChange()
 })
 onBeforeUnmount(() => {
   disposed = true
+  cancelAnimationFrame(frame)
+  clearTimeout(anchorTimer)
+  observer?.disconnect()
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onResize)
+  window.removeEventListener('pageshow', onResize)
+  window.removeEventListener('wheel', onUserScrollIntent)
+  window.removeEventListener('touchstart', onUserScrollIntent)
+  document.removeEventListener('click', onAnchorClick, true)
+  if (previousAnchorOffset) document.documentElement.style.setProperty('--koc-anchor-offset', previousAnchorOffset)
+  else document.documentElement.style.removeProperty('--koc-anchor-offset')
   cleanupTargetFocus?.()
   closeDrawer(false)
   desktopMedia?.removeEventListener('change', onBreakpoint)
@@ -108,7 +210,8 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <header id="navbar" v-bind="designAttrs('navbar')" data-figma-frame="Menu" class="koc-navbar">
+  <div class="koc-navbar-shell" :style="headerSpace ? { height: headerSpace + 'px' } : undefined">
+  <header ref="header" :class="{ 'is-compact': isCompact, 'is-hidden': isHidden }" @focusin="onHeaderFocus" id="navbar" v-bind="designAttrs('navbar')" data-figma-frame="Menu" class="koc-navbar">
     <BaseContainer class="koc-navbar__row">
       <a ref="brand" href="#hero" aria-label="Mẹ Thủy Làm Y - Trang chủ" class="koc-navbar__brand"><BaseBrandLogo /></a>
       <nav class="koc-navbar__links" aria-label="Điều hướng chính">
@@ -134,10 +237,19 @@ onBeforeUnmount(() => {
       </div>
     </Teleport>
   </header>
+  </div>
 </template>
 
 <style scoped>
-.koc-navbar { background: var(--color-neutral-100); }
+.koc-navbar-shell { position: sticky; top: 0; z-index: 50; height: calc(32px + 2 * var(--koc-header-padding)); pointer-events: none; }
+.koc-navbar { pointer-events: auto; background: var(--color-neutral-100); transition: transform 200ms ease; }
+.koc-navbar.is-compact { box-shadow: 0 1px 5px rgb(0 0 0 / .1); }
+.koc-navbar.is-compact .koc-navbar__row { padding-block: var(--koc-space-4); }
+.koc-navbar.is-hidden:not(:has(:focus-visible)) { transform: translateY(-100%); }
+.koc-navbar:has(:focus-visible) { transform: none; transition: none; }
+@media (prefers-reduced-motion: reduce) { .koc-navbar { transition: none; } }
+@media (min-width: 80rem) { .koc-navbar-shell { height: calc(48px + 2 * var(--koc-header-padding)); } }
+
 .koc-navbar__row { display: flex; align-items: center; justify-content: space-between; padding-block: var(--koc-header-padding); gap: var(--koc-space-6); }
 .koc-navbar__brand { display: flex; flex: none; }
 .koc-navbar__links, .koc-navbar__contact { display: none; }
