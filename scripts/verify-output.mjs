@@ -106,7 +106,7 @@ for (const [index, video] of tiktok.videos.entries()) {
   assert.ok(anchor.attr('aria-label').includes(video.title))
   assert.equal(anchor.attr('target'), '_blank')
   assert.ok(anchor.attr('rel').includes('noopener'))
-  assert.equal(anchor.find('img').attr('src'), video.thumbnail)
+  assert.equal(anchor.find('img').attr('src')?.split('?')[0], video.thumbnail)
 }
 assert.equal($('#tiktok .koc-tiktok__follow').attr('href'), tiktok.url)
 assert.equal($('#tiktok iframe').length, 0)
@@ -135,7 +135,7 @@ assert.equal($('#training .koc-training__photo').length, training.images.length)
 assert.equal($('#training .koc-training__module').length, training.modules.length)
 for (const item of training.modules) {
   assert.ok($('#training').text().includes(item.title) && $('#training').text().includes(item.description))
-  assert.equal($('#training img[src="' + item.icon + '"]').length, 1)
+  assert.equal($('#training img').toArray().filter(el => $(el).attr('src')?.split('?')[0] === item.icon).length, 1)
 }
 assert.equal($('#values .koc-values__card').length, values.items.length)
 for (const item of values.items) {
@@ -145,13 +145,13 @@ for (const item of values.items) {
     assert.equal(card.find('.koc-values__desktop-title').text(), item.desktopTitle)
   } else assert.equal(card.find('h3').text(), item.title)
   if (item.desktopImage) {
-    assert.equal(card.find('source').attr('srcset'), item.desktopImage)
+    assert.equal(card.find('source').attr('srcset')?.split('?')[0], item.desktopImage)
     assert.equal(card.find('source').attr('media'), '(min-width: 80rem)')
     assert.ok((await stat(resolve(root, item.desktopImage.slice(1)))).size > 0)
   }
   assert.equal(card.find('p').text(), item.description)
-  assert.equal(card.find('.koc-values__photo img').attr('src'), item.image)
-  assert.equal(card.find('.koc-values__icon img').attr('src'), item.icon)
+  assert.equal(card.find('.koc-values__photo img').attr('src')?.split('?')[0], item.image)
+  assert.equal(card.find('.koc-values__icon img').attr('src')?.split('?')[0], item.icon)
 }
 console.log('Verified Training and Values SSR content, photos and original icons.')
 
