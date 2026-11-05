@@ -22,9 +22,16 @@ const site = resolveSiteSettings(process.env.PORTFOLIO_ENV, process.env.PORTFOLI
 const publicDir = fileURLToPath(new URL('./public', import.meta.url))
 const fileHashCache = new Map<string, string>()
 
+function sanitizePath(rawPath: string): string {
+  const end = rawPath.search(/[?#]/)
+  return end === -1 ? rawPath : rawPath.slice(0, end)
+}
+
 function getAssetHash(publicPath: string): string {
-  const cleanPath = publicPath.split('?')[0].split('#')[0]
-  if (fileHashCache.has(cleanPath)) return fileHashCache.get(cleanPath)!
+  const cleanPath = sanitizePath(publicPath)
+  if (!cleanPath) return ''
+  const cached = fileHashCache.get(cleanPath)
+  if (cached) return cached
   const diskPath = resolve(publicDir, cleanPath.replace(/^\//, ''))
   if (existsSync(diskPath)) {
     const hash = createHash('md5').update(readFileSync(diskPath)).digest('hex').slice(0, 8)
@@ -35,14 +42,14 @@ function getAssetHash(publicPath: string): string {
 }
 
 function appendAssetHash(match: string, attr: string, quote: string, path: string): string {
-  const cleanPath = path.split('?')[0].split('#')[0]
+  const cleanPath = sanitizePath(path)
   const hash = getAssetHash(cleanPath)
   if (!hash) return match
   return `${attr}=${quote}${cleanPath}?v=${hash}${quote}`
 }
 
 function appendCssAssetHash(match: string, quote: string, path: string): string {
-  const cleanPath = path.split('?')[0].split('#')[0]
+  const cleanPath = sanitizePath(path)
   const hash = getAssetHash(cleanPath)
   if (!hash) return match
   return `url(${quote}${cleanPath}?v=${hash}${quote})`
