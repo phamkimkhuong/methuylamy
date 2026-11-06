@@ -70,7 +70,7 @@ export default defineNuxtConfig({
     public: {
       portfolio: site,
       leadApiUrl: process.env.LEAD_API_URL || 'https://admin.vanphuccare.vn/api/public/leads',
-      turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || '',
+      turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || '0x4AAAAAAFfV0g-yO07UT7yb',
     },
   },
   app: {
