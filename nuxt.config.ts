@@ -69,7 +69,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       portfolio: site,
-      leadApiUrl: process.env.LEAD_API_URL || 'https://admin.vanphuccare.vn/api/public/leads',
+      leadApiUrl: process.env.LEAD_API_URL || 'https://api.vanphuccare.vn/api/public/leads',
       turnstileSiteKey: process.env.TURNSTILE_SITE_KEY || '',
     },
   },
