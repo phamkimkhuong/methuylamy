@@ -42,7 +42,7 @@ function generateUuidV4(): string {
 
 export function useLeadSubmit() {
   const config = useRuntimeConfig()
-  const apiUrl = (config.public.leadApiUrl as string) || 'https://api.vanphuccare.vn/api/public/leads'
+  const apiUrl = (config.public.leadApiUrl as string) || 'https://admin.vanphuccare.vn/api/public/leads'
 
   const isLoading = ref(false)
   const isSuccess = ref(false)
