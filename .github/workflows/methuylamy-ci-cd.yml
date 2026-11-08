@@ -19,7 +19,7 @@ jobs:
     name: Test and generate static site
     runs-on: ubuntu-latest
     env:
-      PORTFOLIO_ENV: staging
+      PORTFOLIO_ENV: production
       PORTFOLIO_SITE_URL: https://methuylamy.vn
     steps:
       - name: Checkout source
@@ -59,7 +59,7 @@ jobs:
           retention-days: 3
 
   deploy:
-    name: Deploy preview to iNET VPS
+    name: Deploy production to iNET VPS
     needs: build
     runs-on: ubuntu-latest
     if: >-
@@ -82,7 +82,7 @@ jobs:
           test -s site/robots.txt
           test -s site/sitemap.xml
           test -d site/_nuxt
-          grep -qi 'noindex, nofollow' site/index.html
+          grep -qi 'index, follow' site/index.html
 
       - name: Configure verified SSH credentials
         env:
@@ -125,7 +125,7 @@ jobs:
             site/ "$TARGET:$DEST/"
 
           ssh "${SSH_OPTS[@]}" "$TARGET" \
-            "test -s '$DEST/index.html' && test -s '$DEST/404.html' && test -s '$DEST/robots.txt' && test -d '$DEST/_nuxt' && grep -qi 'noindex, nofollow' '$DEST/index.html'"
+            "test -s '$DEST/index.html' && test -s '$DEST/404.html' && test -s '$DEST/robots.txt' && test -d '$DEST/_nuxt' && grep -qi 'index, follow' '$DEST/index.html'"
 
           # Preserve previously published hashed assets for already-open tabs.
           ssh "${SSH_OPTS[@]}" "$TARGET" \
