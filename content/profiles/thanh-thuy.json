@@ -2,6 +2,7 @@
   "slug": "thanh-thuy",
   "name": "Thanh Thủy",
   "brandName": "Mẹ Thủy Làm Y",
+  "seoTitle": "Mẹ Thủy Làm Y | Chăm Sóc Mẹ & Bé Chuẩn Y Khoa — Vạn Phúc Care",
   "alternateNames": [
     "Thanh Thủy",
     "Mẹ Thủy Làm Y"
@@ -17,6 +18,12 @@
     "alt": "Mẹ Thủy Làm Y - Điều dưỡng trưởng Vạn Phúc Care",
     "width": 506,
     "height": 579
+  },
+  "ogImage": {
+    "src": "/images/brand/og-banner.webp",
+    "alt": "Mẹ Thủy Làm Y - Điều dưỡng trưởng Vạn Phúc Care - Nuôi con chuẩn y khoa",
+    "width": 1200,
+    "height": 630
   },
   "specialties": [
     "Chuyên môn sản nhi",
@@ -37,6 +44,27 @@
     {
       "label": "TikTok Mẹ Thủy Làm Y",
       "url": "https://www.tiktok.com/@methuylamy"
+    }
+  ],
+  "credentials": [
+    {
+      "title": "Cử nhân Điều dưỡng chuyên ngành Sản Nhi"
+    },
+    {
+      "title": "Huấn luyện viên nuôi con theo phương pháp EASY"
+    },
+    {
+      "title": "Chứng chỉ Chăm sóc và Hồi sinh cấp cứu trẻ sơ sinh"
+    }
+  ],
+  "experience": [
+    {
+      "title": "10+ Năm Kinh nghiệm Điều dưỡng Sản Nhi",
+      "description": "Thực hành chăm sóc, theo dõi sức khỏe và đồng hành cùng hơn 1350+ trẻ sơ sinh và mẹ bầu."
+    },
+    {
+      "title": "Điều dưỡng trưởng tại Trung tâm ở cữ Vạn Phúc Care",
+      "description": "Quản lý chuyên môn điều dưỡng, chuẩn hóa quy trình chăm sóc mẹ và bé sau sinh chuẩn y khoa."
     }
   ]
 }

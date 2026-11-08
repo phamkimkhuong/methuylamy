@@ -24,6 +24,20 @@ export function createProfileGraph(
     ...(profile.specialties.length ? { knowsAbout: profile.specialties } : {}),
     ...(profile.socialLinks.length ? { sameAs: profile.socialLinks.map(link => link.url) } : {}),
     ...(profile.organization ? { worksFor: { '@id': profile.organization.entityId } } : {}),
+    ...(profile.credentials?.length ? {
+      hasCredential: profile.credentials.map(c => ({
+        '@type': 'EducationalOccupationalCredential',
+        name: c.title,
+        ...(c.description ? { description: c.description } : {}),
+      })),
+    } : {}),
+    ...(profile.experience?.length ? {
+      hasOccupation: profile.experience.map(e => ({
+        '@type': 'Occupation',
+        name: e.title,
+        ...(e.description ? { description: e.description } : {}),
+      })),
+    } : {}),
   }
   return {
     '@context': 'https://schema.org',
