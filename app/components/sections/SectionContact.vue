@@ -12,11 +12,9 @@ const siteKey = (config.public.turnstileSiteKey as string) || ''
 const form = reactive({ fullName: '', phone: '', email: '', note: '' })
 const {
   isLoading,
-  isSuccess,
   fieldErrors,
   generalError,
   submitLead,
-  reset: resetLeadSubmit,
 } = useLeadSubmit()
 
 const turnstileContainerRef = ref<HTMLElement | null>(null)
@@ -76,17 +74,21 @@ onMounted(() => {
   if ((window as any).turnstile) {
     renderTurnstile()
   } else {
-    const timer = setInterval(() => {
+    turnstilePoll = setInterval(() => {
       if ((window as any).turnstile) {
-        clearInterval(timer)
+        clearInterval(turnstilePoll)
         renderTurnstile()
       }
     }, 150)
-    setTimeout(() => clearInterval(timer), 10000)
+    turnstileDeadline = setTimeout(() => clearInterval(turnstilePoll), 10000)
   }
 })
 
 onBeforeUnmount(() => {
+  disposed = true
+  clearInterval(turnstilePoll)
+  clearTimeout(turnstileDeadline)
+  closeResult()
   if (turnstileWidgetId.value && typeof window !== 'undefined' && (window as any).turnstile?.remove) {
     try {
       (window as any).turnstile.remove(turnstileWidgetId.value)
@@ -96,6 +98,48 @@ onBeforeUnmount(() => {
   }
 })
 
+const resultDialog = ref<HTMLDialogElement | null>(null)
+const submitButton = ref<HTMLButtonElement | null>(null)
+const resultKind = ref<'success' | 'error'>('success')
+const resultMessage = ref('')
+let previousBodyOverflow = ''
+let dialogLocked = false
+let disposed = false
+let turnstilePoll: ReturnType<typeof setInterval> | undefined
+let turnstileDeadline: ReturnType<typeof setTimeout> | undefined
+function closeResult() {
+  resultDialog.value?.close()
+  if (dialogLocked) {
+    document.body.style.overflow = previousBodyOverflow
+    if (!disposed) submitButton.value?.focus({ preventScroll: true })
+  }
+  dialogLocked = false
+}
+function onDialogClick(event: MouseEvent) {
+  if (!resultDialog.value) return
+  const rect = resultDialog.value.getBoundingClientRect()
+  const isInside = (
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+  )
+  if (!isInside) {
+    closeResult()
+  }
+}
+async function openResult(kind: 'success' | 'error', message: string) {
+  if (disposed) return
+  resultKind.value = kind
+  resultMessage.value = message
+  await nextTick()
+  if (disposed || !resultDialog.value) return
+  previousBodyOverflow = document.body.style.overflow
+  dialogLocked = true
+  document.body.style.overflow = 'hidden'
+  resultDialog.value.showModal()
+}
+
 const fields = [
   { key: 'fullName', label: 'Họ và tên', type: 'text', autocomplete: 'name', placeholder: 'Nguyễn Như Linh', max: 120 },
   { key: 'phone', label: 'Số điện thoại', type: 'tel', autocomplete: 'tel', placeholder: '0345678***', max: 10 },
@@ -103,6 +147,11 @@ const fields = [
 ] as const
 
 async function submit() {
+  if (isLoading.value) return
+  if (siteKey && !turnstileToken.value && form.fullName.trim().length >= 2 && /^0[35789]\d{8}$/.test(form.phone.trim())) {
+    await openResult('error', 'Vui lòng hoàn tất xác minh chống spam trước khi gửi thông tin.')
+    return
+  }
   const success = await submitLead({
     fullName: form.fullName,
     phone: form.phone,
@@ -111,23 +160,21 @@ async function submit() {
     captchaToken: turnstileToken.value,
   })
 
+  if (disposed) return
   if (success) {
     form.fullName = ''
     form.phone = ''
     form.email = ''
     form.note = ''
-    resetTurnstile()
+    await openResult('success', 'Cảm ơn Ba/Mẹ đã tin tưởng và đăng ký tư vấn cùng Mẹ Thủy Làm Y. Bộ phận dịch vụ khách hàng sẽ liên hệ lại trong thời gian sớm nhất.')
+  } else if (generalError.value) {
+    await openResult('error', generalError.value)
   } else {
-    resetTurnstile()
+    const field = Object.keys(fieldErrors.value)[0]
+    await nextTick()
+    document.getElementById(field === 'address' ? 'contact-note' : 'contact-' + field)?.focus()
   }
-}
-
-function handleAnotherRequest() {
-  resetLeadSubmit()
   resetTurnstile()
-  nextTick(() => {
-    renderTurnstile()
-  })
 }
 </script>
 
@@ -138,22 +185,7 @@ function handleAnotherRequest() {
       <h2 id="contact-heading" class="koc-heading"><span>{{ data.headline.primary }}</span><span>Hành Trình Nuôi Con <span class="koc-mobile-break"></span>Hạnh Phúc</span></h2>
       <div class="contact-columns">
         <div class="contact-form">
-          <!-- TRẠNG THÁI THÀNH CÔNG (SUCCESS STATE) -->
-          <div v-if="isSuccess" class="contact-success" role="status" aria-live="polite">
-            <div class="contact-success__icon" aria-hidden="true">
-              <img src="/images/icons/check-badge.svg" width="48" height="48" alt="" />
-            </div>
-            <h3 class="contact-success__title">Đăng ký thành công!</h3>
-            <p class="contact-success__message">
-              Cảm ơn Ba/Mẹ đã tin tưởng và đăng ký dịch vụ của MeThuyLamY. Bộ phận dịch vụ khách hàng sẽ liên hệ lại trong thời gian sớm nhất.
-            </p>
-            <button type="button" class="contact-submit contact-submit--another" @click="handleAnotherRequest">
-              Gửi thêm yêu cầu khác
-            </button>
-          </div>
-
-          <!-- FORM TIẾP NHẬN LEAD -->
-          <form v-else class="contact-form-inner" novalidate @submit.prevent="submit">
+          <form class="contact-form-inner" :aria-busy="isLoading" novalidate @submit.prevent="submit">
             <div class="contact-fields">
               <div v-for="field in fields" :key="field.key" class="contact-field" :class="{ 'contact-field--wide': field.key === 'email' }">
                 <label :for="'contact-'+field.key"><span aria-hidden="true">*</span> {{ field.label }}</label>
@@ -194,15 +226,10 @@ function handleAnotherRequest() {
             <!-- Khung Cloudflare Turnstile CAPTCHA -->
             <div v-if="siteKey" ref="turnstileContainerRef" class="contact-turnstile" />
 
-            <!-- Thông báo lỗi chung từ Server hoặc Mạng -->
-            <div v-if="generalError" class="contact-error-alert" role="alert">
-              <p class="contact-error-alert__text">{{ generalError }}</p>
-            </div>
-
             <!-- Nút gửi kèm trạng thái Loading -->
-            <button class="contact-submit" type="submit" :disabled="isLoading">
+            <button ref="submitButton" class="contact-submit" type="submit" :disabled="isLoading">
               <span v-if="isLoading" class="contact-spinner" aria-hidden="true" />
-              <span>{{ isLoading ? 'Đang gửi thông tin...' : 'Gửi yêu cầu tư vấn' }}</span>
+              <span role="status" aria-live="polite">{{ isLoading ? 'Đang gửi thông tin...' : 'Gửi yêu cầu tư vấn' }}</span>
             </button>
           </form>
         </div>
@@ -215,6 +242,21 @@ function handleAnotherRequest() {
         </aside>
       </div>
     </BaseContainer>
+    <ClientOnly>
+    <Teleport to="body">
+      <dialog ref="resultDialog" class="lead-result" :class="{ 'lead-result--error': resultKind === 'error' }" aria-labelledby="lead-result-title" aria-describedby="lead-result-message" @click="onDialogClick" @close="closeResult" @cancel.prevent="closeResult">
+        <button class="lead-result__close" type="button" aria-label="Đóng thông báo" autofocus @click="closeResult"><span aria-hidden="true">×</span></button>
+        <div v-if="resultKind === 'success'" class="lead-result__art" aria-hidden="true">
+          <img src="/images/contact/register-mascot.webp" width="160" height="160" alt="" />
+          <img class="lead-result__check" src="/images/contact/register-check.png" width="64" height="64" alt="" />
+        </div>
+        <div v-else class="lead-result__error-icon" aria-hidden="true">!</div>
+        <h2 id="lead-result-title">{{ resultKind === 'success' ? 'Đăng ký thành công' : 'Chưa thể gửi đăng ký' }}</h2>
+        <p id="lead-result-message">{{ resultMessage }}</p>
+        <p v-if="resultKind === 'error'" class="lead-result__hint">Thông tin đã nhập vẫn được giữ trong form. Bạn có thể đóng thông báo và thử gửi lại.</p>
+      </dialog>
+    </Teleport>
+    </ClientOnly>
   </section>
 </template>
 
@@ -238,17 +280,10 @@ function handleAnotherRequest() {
 .contact-field [aria-invalid=true] { border-color:var(--contact-error-color); }
 .contact-error { margin:0; color:var(--contact-error-color); font-size:var(--koc-body-sm-size); line-height:var(--koc-body-sm-line); }
 .contact-turnstile { min-height:65px; margin-block:var(--koc-space-2); }
-.contact-error-alert { width:100%; padding:var(--koc-space-3) var(--koc-space-4); border:1px solid var(--contact-error-color); border-radius:var(--koc-radius-xl); background:#fef3f2; color:var(--contact-error-color); }
-.contact-error-alert__text { margin:0; font-size:var(--koc-body-sm-size); line-height:var(--koc-body-sm-line); }
 .contact-submit { display:inline-flex; align-items:center; justify-content:center; gap:var(--koc-space-2); width:100%; padding:var(--koc-space-2) var(--koc-space-4); border-radius:var(--koc-radius-full); background:var(--color-primary-500); color:var(--color-neutral-offwhite); cursor:pointer; font-weight:var(--koc-weight-medium); }
 .contact-submit:disabled { opacity:0.7; cursor:not-allowed; }
-.contact-submit--another { width:auto; align-self:center; margin-top:var(--koc-space-2); }
 .contact-spinner { width:18px; height:18px; border:2px solid rgba(255,255,255,0.4); border-top-color:#ffffff; border-radius:50%; animation:spin 0.7s linear infinite; display:inline-block; }
 @keyframes spin { to { transform:rotate(360deg); } }
-.contact-success { width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; gap:var(--koc-space-4); padding:var(--koc-space-8) var(--koc-space-4); }
-.contact-success__icon { display:flex; align-items:center; justify-content:center; }
-.contact-success__title { margin:0; font-size:var(--koc-body-2xl-size); line-height:var(--koc-body-2xl-line); color:var(--color-primary-600); font-weight:var(--koc-weight-semibold); }
-.contact-success__message { margin:0; max-width:480px; font-size:var(--koc-body-base-size); line-height:var(--koc-body-base-line); color:var(--color-neutral-700); }
 .contact-info { display:flex; flex-direction:column; gap:var(--koc-space-6); padding:var(--koc-space-6); border:var(--koc-border-thin) solid var(--color-secondary-400); border-radius:var(--koc-radius-3xl); background:var(--color-neutral-100); }
 .contact-info h3 { margin:0; font:var(--koc-weight-regular) var(--text-h3-mobile)/var(--text-h3-mobile--line-height) var(--font-heading); color:var(--color-secondary-500); }
 .contact-info p { margin:0; overflow-wrap:anywhere; }
@@ -272,4 +307,18 @@ function handleAnotherRequest() {
  .contact-description { margin-top:calc(-1 * var(--koc-space-3))!important; }
  .contact-info h4 { font-size:var(--koc-body-2xl-size); line-height:var(--koc-body-2xl-line); }
 }
+
+.lead-result { position:fixed; inset:0; margin:auto; width:min(480px,calc(100% - 32px)); max-height:calc(100dvh - 32px); overflow-y:auto; border:0; border-radius:var(--koc-radius-3xl); padding:64px 24px 36px; background:var(--color-neutral-offwhite); color:var(--color-neutral-800); text-align:center; box-shadow:0 16px 48px rgb(0 0 0 / .2); font:var(--koc-weight-medium) var(--koc-body-sm-size)/var(--koc-body-sm-line) var(--font-body); }
+.lead-result::backdrop { background:rgb(29 51 66 / .8); }
+.lead-result__close { position:absolute; top:16px; right:16px; width:44px; height:44px; display:grid; place-items:center; border:0; background:transparent; color:var(--color-neutral-900); cursor:pointer; font-size:28px; }
+.lead-result__close:focus-visible { outline:2px solid var(--color-primary-500); outline-offset:2px; border-radius:var(--koc-radius-lg); }
+.lead-result__art { position:relative; width:160px; height:160px; margin:0 auto 28px; }
+.lead-result__art > img:first-child { width:100%; height:100%; object-fit:contain; }
+.lead-result__check { position:absolute; width:64px; height:64px; bottom:12px; left:48px; }
+.lead-result h2 { margin:0 0 12px; color:var(--color-secondary-600); font:var(--koc-weight-semibold) var(--text-h2-mobile)/var(--text-h2-mobile--line-height) var(--font-heading); }
+.lead-result p { margin:0; }
+.lead-result__hint { margin-top:12px!important; }
+.lead-result__error-icon { width:72px; height:72px; margin:0 auto 24px; border:3px solid #b42318; border-radius:50%; color:#b42318; font-size:44px; line-height:66px; }
+.lead-result--error h2 { color:#b42318; }
+@media(prefers-reduced-motion:reduce) { .contact-spinner { animation:none; } }
 </style>

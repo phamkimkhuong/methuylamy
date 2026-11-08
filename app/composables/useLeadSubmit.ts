@@ -91,6 +91,8 @@ export function useLeadSubmit() {
    * Gửi dữ liệu Lead lên Backend
    */
   async function submitLead(payload: LeadInputPayload): Promise<boolean> {
+    if (isLoading.value) return false
+    isSuccess.value = false
     generalError.value = null
 
     if (!validate(payload)) {
@@ -117,9 +119,12 @@ export function useLeadSubmit() {
       cleanPayload.captchaToken = payload.captchaToken.trim()
     }
 
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 20000)
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
+        signal: controller.signal,
         headers: {
           'Content-Type': 'application/json',
           'Idempotency-Key': idempotencyKey.value,
@@ -135,7 +140,7 @@ export function useLeadSubmit() {
         resData = null
       }
 
-      if (response.ok && resData?.status) {
+      if (response.ok && resData?.status === true && resData.data?.leadId) {
         isSuccess.value = true
         leadResult.value = resData.data ?? null
         fieldErrors.value = {}
@@ -152,8 +157,11 @@ export function useLeadSubmit() {
       if (status === 422) {
         if (errorDetail?.fields && Object.keys(errorDetail.fields).length > 0) {
           fieldErrors.value = errorDetail.fields
+          if (errorDetail.fields.captchaToken) {
+            generalError.value = errorDetail.fields.captchaToken
+          }
         } else {
-          generalError.value = 'Chưa thể gửi thông tin lúc này. Vui lòng bấm gửi lại hoặc liên hệ hotline để được hỗ trợ nhanh nhất.'
+          generalError.value = resData?.message || errorDetail?.message || 'Chưa thể gửi thông tin lúc này. Vui lòng bấm gửi lại hoặc liên hệ hotline để được hỗ trợ nhanh nhất.'
         }
       } else if (status === 429) {
         const retryAfter = response.headers.get('Retry-After')
@@ -161,13 +169,13 @@ export function useLeadSubmit() {
           ? `Bạn đã gửi yêu cầu quá nhanh. Vui lòng thử lại sau ${retryAfter} giây.`
           : 'Bạn đã gửi yêu cầu quá nhanh. Vui lòng thử lại sau ít phút.'
       } else if (status === 403) {
-        generalError.value = 'Nguồn gửi yêu cầu không được cấp phép.'
+        generalError.value = resData?.message || errorDetail?.message || 'Nguồn gửi yêu cầu không được cấp phép.'
       } else if (status === 413) {
-        generalError.value = 'Dữ liệu gửi lên vượt quá giới hạn 16KB.'
+        generalError.value = resData?.message || errorDetail?.message || 'Dữ liệu gửi lên vượt quá giới hạn 16KB.'
       } else if (status >= 500) {
-        generalError.value = resData?.message || 'Hệ thống đang bảo trì, vui lòng liên hệ hotline để được hỗ trợ nhanh nhất.'
+        generalError.value = resData?.message || errorDetail?.message || 'Hệ thống đang bảo trì, vui lòng liên hệ hotline để được hỗ trợ nhanh nhất.'
       } else {
-        generalError.value = resData?.message || 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau.'
+        generalError.value = resData?.message || errorDetail?.message || 'Không thể gửi yêu cầu lúc này. Vui lòng thử lại sau.'
       }
 
       return false
@@ -176,6 +184,7 @@ export function useLeadSubmit() {
       generalError.value = 'Không thể kết nối đến máy chủ tiếp nhận. Vui lòng kiểm tra kết nối mạng hoặc liên hệ hotline bên dưới.'
       return false
     } finally {
+      clearTimeout(timeout)
       isLoading.value = false
     }
   }
