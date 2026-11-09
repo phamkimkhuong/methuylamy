@@ -8,73 +8,61 @@
   {
     "id": "hipp",
     "name": "HiPP Organic",
-    "logo": "/images/partners/partner-1.webp",
-    "website": "https://hipp.vn"
+    "logo": "/images/partners/partner-1.webp"
   },
   {
     "id": "unbee",
     "name": "Unbee",
-    "logo": "/images/partners/partner-2.webp",
-    "website": "https://unbee.vn/"
+    "logo": "/images/partners/partner-2.webp"
   },
   {
     "id": "thyseed",
     "name": "thyseed",
-    "logo": "/images/partners/partner-3.webp",
-    "website": "https://thyseed.vn/"
+    "logo": "/images/partners/partner-3.webp"
   },
   {
     "id": "wesser",
     "name": "Wesser",
-    "logo": "/images/partners/partner-4.webp",
-    "website": "https://wesser.com.vn/"
+    "logo": "/images/partners/partner-4.webp"
   },
   {
     "id": "cetaphil",
     "name": "Cetaphil Baby",
-    "logo": "/images/partners/partner-5.webp",
-    "website": "https://cetaphil.com.vn/"
+    "logo": "/images/partners/partner-5.webp"
   },
   {
     "id": "dr-papie",
     "name": "Dr.Papie",
-    "logo": "/images/partners/partner-6.webp",
-    "website": "https://drpapie.com.vn/"
+    "logo": "/images/partners/partner-6.webp"
   },
   {
     "id": "hoppi",
     "name": "Hoppi",
-    "logo": "/images/partners/partner-7.webp",
-    "website": "https://hoppi.vn/"
+    "logo": "/images/partners/partner-7.webp"
   },
   {
     "id": "mooimom",
     "name": "MOOIMOM",
-    "logo": "/images/partners/partner-8.webp",
-    "website": "https://www.mooimom.vn/"
+    "logo": "/images/partners/partner-8.webp"
   },
   {
     "id": "emoon",
     "name": "Emoon",
-    "logo": "/images/partners/partner-9.webp",
-    "website": "https://emoon.com.vn/"
+    "logo": "/images/partners/partner-9.webp"
   },
   {
     "id": "la-roche-posay",
     "name": "La Roche-Posay",
-    "logo": "/images/partners/partner-10.webp",
-    "website": "https://www.larocheposay.vn/"
+    "logo": "/images/partners/partner-10.webp"
   },
   {
     "id": "tommee-tippee",
     "name": "Tommee Tippee",
-    "logo": "/images/partners/partner-13.svg",
-    "website": "https://tommeetippeevietnam.com/"
+    "logo": "/images/partners/partner-13.svg"
   },
   {
     "id": "lam-ha-sg",
     "name": "Lâm Hà SG",
-    "logo": "/images/partners/partner-11.webp",
-    "website": "http://xnklinhlinh.com/"
+    "logo": "/images/partners/partner-11.webp"
   }
 ]
