@@ -41,18 +41,22 @@ function getAssetHash(publicPath: string): string {
   return ''
 }
 
-function appendAssetHash(match: string, attr: string, quote: string, path: string): string {
-  const cleanPath = sanitizePath(path)
-  const hash = getAssetHash(cleanPath)
-  if (!hash) return match
-  return `${attr}=${quote}${cleanPath}?v=${hash}${quote}`
+// Version source URLs before both SSR and client compilation. Rewriting only
+// prerendered HTML leaves Vue's client data pointing at a different cached asset.
+function versionAssetUrl(path: string): string {
+  const hash = getAssetHash(path)
+  if (!hash) return path
+  const url = new URL(path, 'https://assets.invalid')
+  url.searchParams.set('v', hash)
+  return url.pathname + url.search + url.hash
 }
 
-function appendCssAssetHash(match: string, quote: string, path: string): string {
-  const cleanPath = sanitizePath(path)
-  const hash = getAssetHash(cleanPath)
-  if (!hash) return match
-  return `url(${quote}${cleanPath}?v=${hash}${quote})`
+function versionAssetSource(source: string): string {
+  return source
+    .replace(/(["'])(\/images\/[^"'\s)]+)\1/g,
+      (_match: string, quote: string, path: string) => quote + versionAssetUrl(path) + quote)
+    .replace(/url\((\/images\/[^\s)'"()]+)\)/g,
+      (_match: string, path: string) => 'url(' + versionAssetUrl(path) + ')')
 }
 
 export default defineNuxtConfig({
@@ -62,6 +66,19 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
+      {
+        name: 'portfolio-public-asset-versions',
+        enforce: 'pre',
+        apply: 'build',
+        transform(source, id) {
+          const path = id.split('?')[0]!.replace(/\\/g, '/')
+          const root = fileURLToPath(new URL('.', import.meta.url)).replace(/\\/g, '/')
+          if (!['app/', 'content/', 'shared/'].some(dir => path.startsWith(root + dir))) return
+          if (!/\.(vue|json|ts|js|css)$/.test(path)) return
+          const code = versionAssetSource(source)
+          return code === source ? undefined : { code, map: null }
+        },
+      },
       tailwindcss(),
     ],
   },
@@ -113,18 +130,12 @@ export default defineNuxtConfig({
         // Keep public/404.html usable without JS. Do not ship Nuxt's empty SPA
         // fallback documents or let a static host serve unknown URLs as 200.
         if (route.route === '/200.html' || route.route === '/404.html') route.skip = true
-
-        if (typeof route.contents === 'string' && (route.fileName?.endsWith('.html') || !route.fileName || route.route === '/' || route.route.endsWith('.html'))) {
-          route.contents = route.contents
-            .replace(
-              /\b(src|href|srcset)=(["'])(\/(?:images\/|favicon\.|apple-touch-icon)[^"'\s>]+)\2/g,
-              (m: string, attr: string, quote: string, path: string) => appendAssetHash(m, attr, quote, path)
-            )
-            .replace(
-              /\burl\((["']?)(\/(?:images\/)[^'")\s]+)\1\)/g,
-              (m: string, quote: string, path: string) => appendCssAssetHash(m, quote, path)
-            )
+        // Use the same versioning as the client bundle for Nitro's final HTML.
+        if (typeof route.contents === 'string' && route.fileName?.endsWith('.html')) {
+          route.contents = versionAssetSource(route.contents)
         }
+
+
       },
     },
     prerender: {
