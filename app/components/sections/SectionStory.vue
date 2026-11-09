@@ -37,7 +37,7 @@ const data = computed(() => props.content ?? storyContent)
 .koc-story__lead { font: var(--koc-weight-medium) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-body); color: var(--color-neutral-900); }
 .koc-story__lead { width: 100%; max-width: 1039.417px; text-align: center; }
 .koc-story__row { display: flex; flex-direction: column; align-items: stretch; gap: var(--koc-space-6); width: 100%; max-width: 511px; }
-.koc-story__photo { display: block; width: 100%; height: auto; aspect-ratio: 350 / 206; object-fit: fill; border-radius: var(--koc-radius-3xl); }
+.koc-story__photo { display: block; width: 100%; height: auto; aspect-ratio: 350 / 206; object-fit: cover; border-radius: var(--koc-radius-3xl); }
 .koc-story__quote-content { display: flex; flex-direction: column; align-items: flex-end; gap: var(--koc-space-6); width: 100%; }
 .koc-story__quote-content p { width: 100%; margin: 0; white-space: pre-line; font: italic var(--koc-weight-regular) var(--koc-body-base-size)/var(--koc-body-base-line) var(--font-heading); font-variation-settings: "SOFT" 0, "WONK" 1; color: var(--color-neutral-900); }
 .koc-story__signature { display: block; flex: none; max-width: none; }

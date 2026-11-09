@@ -15,7 +15,7 @@ const data = computed(() => props.content ?? heroContent)
         </div>
         <h1 id="hero-heading" class="koc-heading koc-hero__heading" data-design-part="hero-heading" data-figma-desktop-id="2617:11153" data-figma-mobile-id="2617:10931">
           <span class="koc-hero__title-primary">{{ data.headline.primary }}</span>
-          <span class="koc-hero__title-secondary">Trên Hành Trình <span class="koc-mobile-break"></span>Làm Mẹ</span>
+          <span class="koc-hero__title-secondary"> Trên Hành Trình <span class="koc-mobile-break"></span>Làm Mẹ</span>
         </h1>
         <p class="koc-hero__description" data-design-part="hero-description" data-figma-desktop-id="2617:11156" data-figma-mobile-id="2617:10934">{{ data.description }}</p>
         <ul class="koc-hero__credentials" aria-label="Chuyên môn">
@@ -26,8 +26,8 @@ const data = computed(() => props.content ?? heroContent)
         </ul>
         <dl class="koc-hero__stats" data-design-part="hero-stats" data-figma-desktop-id="2617:11160" data-figma-mobile-id="2617:10938">
           <div v-for="(stat, index) in data.statistics" :key="stat.label" class="koc-hero__stat" :data-design-part="'hero-stat-' + index">
-            <div class="koc-hero__stat-copy"><dt>{{ stat.label }}</dt><dd>{{ stat.value }}</dd></div>
-            <span v-if="index < data.statistics.length - 1" class="koc-hero__divider" aria-hidden="true"><img src="/images/hero/stats-divider.svg" width="1" height="69" alt="" /></span>
+            <dt>{{ stat.label }}</dt>
+            <dd>{{ stat.value }}</dd>
           </div>
         </dl>
       </div>
@@ -51,13 +51,11 @@ const data = computed(() => props.content ?? heroContent)
 .koc-hero__check-slot { position: relative; flex: 0 0 24.351px; height: 23.463px; }
 .koc-hero__check-slot img { position: absolute; top: 0; left: 0; max-width: none; }
 .koc-hero__stats { display: flex; flex-direction: column; align-items: stretch; gap: var(--koc-space-2); width: 100%; padding: var(--koc-space-4); border-radius: var(--koc-radius-xl); background: var(--color-neutral-white); border: var(--koc-border-thin) solid var(--color-neutral-500); box-shadow: var(--koc-feature-shadow); }
-.koc-hero__stat { display: flex; align-items: flex-start; gap: var(--koc-space-4); padding: var(--koc-space-2); border-radius: var(--koc-radius-xl); }
-.koc-hero__stat-copy { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: var(--koc-space-2); }
+.koc-hero__stat { width: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: var(--koc-space-2); padding: var(--koc-space-2); border-radius: var(--koc-radius-xl); }
 .koc-hero__stat dt { order: 1; width: 100%; text-align: left; color: var(--color-neutral-800); font-size: var(--koc-body-base-size); line-height: var(--koc-body-base-line); }
 .koc-hero__stat dd { width: 100%; text-align: left; color: var(--color-neutral-900); font-size: var(--koc-body-2xl-size); line-height: var(--koc-body-2xl-line); }
-.koc-hero__divider { display: none; }
 /* Figma MCP asset already contains the crop, normalized to the source raster size. */
-.koc-hero__portrait { display: block; width: 100%; max-width: var(--hero-photo-width); aspect-ratio: 350 / 400; height: auto; object-fit: fill; border-radius: var(--koc-radius-xl); }
+.koc-hero__portrait { display: block; width: 100%; max-width: var(--hero-photo-width); aspect-ratio: 350 / 400; height: auto; object-fit: cover; border-radius: var(--koc-radius-xl); }
 @media (min-width: 80rem) {
   .koc-hero__layout { flex-direction: row; align-items: flex-start; justify-content: space-between; gap: var(--koc-space-6); }
   .koc-hero__profile { flex: 0 0 var(--hero-profile-width); align-items: flex-start; }
@@ -65,13 +63,12 @@ const data = computed(() => props.content ?? heroContent)
   .koc-hero__heading { align-items: flex-start; text-align: left; }
   .koc-hero__title-secondary { width: 100%; }
   .koc-hero__description { text-align: justify; }
-  .koc-hero__stats { flex-direction: row; align-items: center; justify-content: center; padding: var(--koc-space-4) var(--koc-space-10); }
-  .koc-hero__stat { flex: none; align-items: center; padding: var(--koc-space-3) var(--koc-space-2); }
-  .koc-hero__stat-copy { width: auto; }
+  .koc-hero__stats { flex-direction: row; align-items: center; justify-content: center; padding: var(--koc-space-4) var(--koc-space-10); gap: var(--koc-space-2); }
+  .koc-hero__stat { flex: none; width: auto; align-items: flex-start; padding: var(--koc-space-3) var(--koc-space-2); position: relative; }
+  .koc-hero__stat:not(:last-child) { padding-right: var(--koc-space-6); }
+  .koc-hero__stat:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 69px; background: url('/images/hero/stats-divider.svg') no-repeat center; }
   .koc-hero__stat dt { width: auto; font-size: var(--koc-body-xl-size); line-height: var(--koc-body-xl-line); white-space: nowrap; }
   .koc-hero__stat dd { width: auto; white-space: nowrap; }
-  .koc-hero__divider { display: block; position: relative; width: 0; height: 68px; }
-  .koc-hero__divider img { position: absolute; top: -.5px; left: -.5px; max-width: none; }
   .koc-hero__portrait { flex: 0 0 var(--hero-photo-width); width: var(--hero-photo-width); height: 579px; }
 }
 </style>

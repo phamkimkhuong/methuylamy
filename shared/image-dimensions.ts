@@ -1,12 +1,12 @@
 // Intrinsic dimensions from optimized WebP files
 export const localImageDimensions: Record<string, { width: number; height: number }> = {
   "/images/hero/hero-portrait.webp": {
-    "width": 1024,
-    "height": 576
+    "width": 506,
+    "height": 579
   },
   "/images/story/story-photo.webp": {
-    "width": 1024,
-    "height": 683
+    "width": 511,
+    "height": 301
   },
   "/images/training/training-practical-v2.webp": {
     "width": 1000,

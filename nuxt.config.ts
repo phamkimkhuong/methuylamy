@@ -97,6 +97,16 @@ export default defineNuxtConfig({
           'cache-control': 'public, max-age=0, must-revalidate',
         },
       },
+      '/sitemap.xml': {
+        headers: {
+          'cache-control': 'no-cache, no-store, must-revalidate',
+        },
+      },
+      '/robots.txt': {
+        headers: {
+          'cache-control': 'no-cache, no-store, must-revalidate',
+        },
+      },
     },
     hooks: {
       'prerender:generate'(route) {

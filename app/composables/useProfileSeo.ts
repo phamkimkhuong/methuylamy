@@ -25,12 +25,6 @@ export function useProfileSeo() {
     twitterTitle: title, twitterDescription: profile.description,
   })
   useHead({
-    meta: [
-      { name: 'geo.region', content: 'VN-HN' },
-      { name: 'geo.placename', content: 'Hà Nội' },
-      { name: 'geo.position', content: '21.028511;105.804817' },
-      { name: 'ICBM', content: '21.028511, 105.804817' },
-    ],
     link: [
       { rel: 'canonical', href: url },
       // LCP Image Preload for Core Web Vitals optimization
