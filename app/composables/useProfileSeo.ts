@@ -27,11 +27,12 @@ export function useProfileSeo() {
   useHead({
     link: [
       { rel: 'canonical', href: url },
-      // LCP Image Preload for Core Web Vitals optimization
+      // LCP Image Preload for Core Web Vitals optimization (Desktop only, hero is above-the-fold)
       {
         rel: 'preload',
         as: 'image',
         href: heroContent.portrait.src,
+        media: '(min-width: 1024px)',
         fetchpriority: 'high',
       },
     ],

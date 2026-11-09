@@ -69,24 +69,24 @@ export const handoffMediaDimensions: Record<string, { width: number; height: num
     "height": 313
   },
   "/images/tiktok/video-1.webp": {
-    "width": 500,
-    "height": 889
+    "width": 260,
+    "height": 462
   },
   "/images/tiktok/video-2.webp": {
-    "width": 500,
-    "height": 887
+    "width": 260,
+    "height": 461
   },
   "/images/tiktok/video-3.webp": {
-    "width": 500,
-    "height": 889
+    "width": 260,
+    "height": 462
   },
   "/images/tiktok/video-4.webp": {
-    "width": 500,
-    "height": 889
+    "width": 260,
+    "height": 462
   },
   "/images/tiktok/video-5.webp": {
-    "width": 500,
-    "height": 889
+    "width": 260,
+    "height": 462
   },
   "/images/partners/partner-0.webp": {
     "width": 400,
@@ -136,7 +136,7 @@ export const handoffMediaDimensions: Record<string, { width: number; height: num
     "width": 400,
     "height": 400
   },
-  "/images/tiktok/tiktok-avatar.png": {
+  "/images/tiktok/tiktok-avatar.webp": {
     "width": 144,
     "height": 144
   }
