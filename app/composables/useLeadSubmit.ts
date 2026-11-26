@@ -3,6 +3,7 @@ export interface LeadInputPayload {
   phone: string
   email?: string
   address?: string
+  note?: string
   captchaToken?: string
 }
 
@@ -60,6 +61,7 @@ export function useLeadSubmit() {
     const phone = payload.phone?.trim() || ''
     const email = payload.email?.trim() || ''
     const address = payload.address?.trim() || ''
+    const note = payload.note?.trim() || ''
 
     if (!fullName) {
       nextErrors.fullName = 'Vui lòng nhập họ và tên.'
@@ -80,7 +82,11 @@ export function useLeadSubmit() {
     }
 
     if (address && address.length > 500) {
-      nextErrors.address = 'Ghi chú nhu cầu tối đa 500 ký tự.'
+      nextErrors.address = 'Địa chỉ tối đa 500 ký tự.'
+    }
+
+    if (note && note.length > 500) {
+      nextErrors.note = 'Ghi chú nhu cầu tối đa 500 ký tự.'
     }
 
     fieldErrors.value = nextErrors
@@ -113,6 +119,10 @@ export function useLeadSubmit() {
 
     if (payload.address?.trim()) {
       cleanPayload.address = payload.address.trim().replace(/\s+/g, ' ')
+    }
+
+    if (payload.note?.trim()) {
+      cleanPayload.note = payload.note.trim().replace(/\s+/g, ' ')
     }
 
     if (payload.captchaToken?.trim()) {

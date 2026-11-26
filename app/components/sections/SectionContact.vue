@@ -156,7 +156,7 @@ async function submit() {
     fullName: form.fullName,
     phone: form.phone,
     email: form.email,
-    address: form.note,
+    note: form.note,
     captchaToken: turnstileToken.value,
   })
 
@@ -215,11 +215,11 @@ async function submit() {
                   maxlength="500"
                   :disabled="isLoading"
                   placeholder="Cho chúng tôi biết thêm về nhu cầu của bạn!"
-                  :aria-invalid="!!fieldErrors.address"
-                  :aria-describedby="fieldErrors.address ? 'contact-error-note' : undefined"
-                  @input="delete fieldErrors.address"
+                  :aria-invalid="!!fieldErrors.note"
+                  :aria-describedby="fieldErrors.note ? 'contact-error-note' : undefined"
+                  @input="delete fieldErrors.note"
                 />
-                <p v-if="fieldErrors.address" id="contact-error-note" class="contact-error">{{ fieldErrors.address }}</p>
+                <p v-if="fieldErrors.note" id="contact-error-note" class="contact-error">{{ fieldErrors.note }}</p>
               </div>
             </div>
 
