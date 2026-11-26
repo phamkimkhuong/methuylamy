@@ -8,8 +8,24 @@ const data = computed(() => props.content ?? courseContent)
 const showPlayer = ref(false)
 const isLoading = ref(false)
 const videoError = ref(false)
+const videoAspectRatio = ref<string | null>(null)
 const videoRef = ref<HTMLVideoElement | null>(null)
 let hlsInstance: any = null
+
+function syncVideoAspectRatio() {
+  const el = videoRef.value
+  if (!el || !Number.isFinite(el.videoWidth) || !Number.isFinite(el.videoHeight)) return
+  if (el.videoWidth <= 0 || el.videoHeight <= 0) return
+  videoAspectRatio.value = `${el.videoWidth} / ${el.videoHeight}`
+}
+
+function onVideoError() {
+  cleanupHls()
+  videoError.value = true
+  showPlayer.value = false
+  isLoading.value = false
+  videoAspectRatio.value = null
+}
 
 function cleanupHls() {
   if (hlsInstance) {
@@ -31,6 +47,7 @@ watch(() => data.value.videoSrc, () => {
   showPlayer.value = false
   isLoading.value = false
   videoError.value = false
+  videoAspectRatio.value = null
 })
 
 async function resolveStreamUrl(src: string): Promise<string> {
@@ -66,6 +83,7 @@ async function resolveStreamUrl(src: string): Promise<string> {
 async function openPlayer() {
   if (!data.value.videoSrc || isLoading.value) return
   videoError.value = false
+  videoAspectRatio.value = null
   isLoading.value = true
   showPlayer.value = true
 
@@ -110,10 +128,7 @@ async function openPlayer() {
                 hls.recoverMediaError()
                 break
               default:
-                cleanupHls()
-                videoError.value = true
-                showPlayer.value = false
-                isLoading.value = false
+                onVideoError()
                 break
             }
           }
@@ -135,10 +150,7 @@ async function openPlayer() {
       videoEl.play().catch(() => {})
     }
   } catch {
-    cleanupHls()
-    videoError.value = true
-    showPlayer.value = false
-    isLoading.value = false
+    onVideoError()
   }
 }
 </script>
@@ -151,17 +163,23 @@ async function openPlayer() {
         <span>Cùng Mẹ Thủy <span class="koc-mobile-break"></span>Chăm Con</span>
       </h2>
       <p class="koc-course__description">{{ data.description }}</p>
-      <div class="koc-course__media">
+      <div
+        class="koc-course__media"
+        :style="showPlayer && videoAspectRatio ? { aspectRatio: videoAspectRatio } : undefined"
+      >
         <video
           v-if="showPlayer && data.videoSrc"
           ref="videoRef"
           :poster="data.coverImage"
           class="koc-course__video"
+          :class="{ 'koc-course__video--ready': Boolean(videoAspectRatio) }"
           controls
           playsinline
           controlslist="nodownload noplaybackrate"
           :aria-label="data.headline.primary"
-          @error="videoError = true; showPlayer = false"
+          @loadedmetadata="syncVideoAspectRatio"
+          @resize="syncVideoAspectRatio"
+          @error="onVideoError"
         >
           Trình duyệt không hỗ trợ phát video.
         </video>
@@ -211,7 +229,9 @@ async function openPlayer() {
 .koc-course__triangle { position: absolute; width: 38px; height: 47px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 .koc-course__triangle > span { position: absolute; width: 47px; height: 38px; left: -4.5px; top: 4.5px; transform: rotate(90deg); }
 .koc-course__triangle img { position: absolute; left: 12.71%; top: 5.69%; }
-.koc-course__video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+.koc-course__video { display: block; width: 100%; height: 100%; object-fit: cover; background: transparent; }
+.koc-course__video--ready { object-fit: contain; }
+.koc-course__video:fullscreen { object-fit: contain; background: #000; }
 .koc-course__loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.4); z-index: 2; }
 .koc-course__spinner { width: 48px; height: 48px; border: 4px solid rgba(255, 255, 255, 0.3); border-top-color: #fff; border-radius: 50%; animation: koc-spin 0.8s linear infinite; }
 @keyframes koc-spin { to { transform: rotate(360deg); } }

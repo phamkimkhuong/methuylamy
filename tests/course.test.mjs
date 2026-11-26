@@ -20,3 +20,10 @@ test('optional video source rejects unsafe or malformed URLs', () => {
     assert.equal(courseSchema.parse({ ...data, published: true, videoSrc }).videoSrc, videoSrc)
   }
 })
+test('course video player adapts aspect ratio from metadata and avoids black pillarbox fill', async () => {
+  const source = await readFile(new URL('../app/components/sections/SectionCourse.vue', import.meta.url), 'utf8')
+  assert.match(source, /@loadedmetadata="syncVideoAspectRatio"/)
+  assert.match(source, /@resize="syncVideoAspectRatio"/)
+  assert.match(source, /aspectRatio:\s*videoAspectRatio/)
+  assert.doesNotMatch(source, /\.koc-course__video\s*\{[^}]*background:\s*#000/)
+})
